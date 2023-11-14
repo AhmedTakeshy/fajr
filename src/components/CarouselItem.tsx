@@ -109,7 +109,7 @@ export default function CarouselItem() {
             </Slide>
             <div
                 dir="rtl"
-                className="flex flex-col gap-2.5 items-start justify-between absolute top-[50%] translate-y-[-50%] right-96 text-black animate-fade-in-out"
+                className="flex flex-col gap-2.5 items-start justify-between absolute top-[50%] translate-y-[-50%] right-96 text-black"
             >
                 <h1 className="text-5xl font-bold ">{text.title}</h1>
                 <p className="max-w-md text-2xl" dir="rtl">
