@@ -5,7 +5,15 @@ const nextConfig = {
         {
             protocol: 'https',
             hostname: 'okab.pixeldima.com',
-        }
+        },
+        {
+            protocol: 'https',
+            hostname: 'c.wallhere.com',
+        },
+        {
+            protocol: 'https',
+            hostname: 'wallpapercave.com',
+        },
     ]
     }
 }

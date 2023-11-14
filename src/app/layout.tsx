@@ -26,7 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavMenu />
-        <main className="flex justify-center">
+        <main className="">
           {children}
         </main>
         </ThemeProvider>

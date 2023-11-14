@@ -9,14 +9,29 @@ import {
 import Link from "next/link"
 import { ModeToggler } from "./ModeToggler"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function NavMenu() {
-    const [open, setOpen] = useState<boolean>(false)
+    const [showBg, setShowBg] = useState(false)
+
+    const handleScroll = () => {
+        if (window.scrollY > 70) {
+            setShowBg(true)
+        } else {
+            setShowBg(false)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll)
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [])
 
     return (
-        <NavigationMenu dir="rtl" className="items-center justify-between hidden gap-2 md:flex my-8 !container sticky top-4 w-full">
+        <NavigationMenu dir="rtl" className={`${showBg ?"shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30":""} items-center rounded-xl justify-between hidden gap-2 md:flex my-8 !container sticky top-6 w-full`}>
             <Image className="ml-auto" src="https://okab.pixeldima.com/business-rtl/wp-content/uploads/sites/6/2021/01/okab-ar.png" width={130} height={32} alt="logo" />
             <NavigationMenuList className="items-center justify-between hidden gap-2 md:flex ">
                 <NavigationMenuItem>
