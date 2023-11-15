@@ -3,14 +3,14 @@ import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import {  SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { HiOutlineArrowDown } from "react-icons/hi";
-
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import { fadeIn } from "@/lib/variants";
 
-const big1 = "/imgs/pic1-big.jpg";
-const small1 = "/imgs/pic1-small.jpg";
+
 const big2 = "/imgs/pic2-big.jpg";
 const small2 = "/imgs/pic2-small.jpg";
 const big3 = "/imgs/pic3-big.jpg";
@@ -21,12 +21,11 @@ const big5 = "/imgs/pic5-big.jpg";
 const big6 = "/imgs/pic6-big.jpg";
 
 const images = [
-    // { big: big2, small: small2 },
     { big: big5, small: big5 },
+    { big: big2, small: small2 },
     { big: big6, small: big6 },
-    // { big: big1, small: small1 },
-    // { big: big4, small: small4 },
-    // { big: big3, small: small3 },
+    { big: big4, small: small4 },
+    { big: big3, small: small3 },
 ];
 
 const texts: TextState[] = [
@@ -47,8 +46,8 @@ const texts: TextState[] = [
 ];
 
 type TextState = {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     button?: string;
 };
 
@@ -57,6 +56,7 @@ export default function CarouselItem() {
         title: "الرقمية",
         description: ` إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة`,
     });
+    const [showText, setShowText] = useState<boolean>(false);
 
     const changeText = (i: number): void => {
         setText(texts.at(i)!);
@@ -88,7 +88,7 @@ export default function CarouselItem() {
                 duration={2000}
                 canSwipe={false}
                 {...properties}
-                // onChange={(i) => changeText(i)}
+                onChange={(i) => setShowText(i === 0 ? false : true)}
                 onStartChange={(i) => changeText(i)}
             >
                 {images.map((image, index) => {
@@ -107,23 +107,32 @@ export default function CarouselItem() {
                     );
                 })}
             </Slide>
-            <div
+            {!!text&&<motion.div
+                variants={fadeIn("up", 0.3)}
+                initial="hidden"
+                whileInView={"show"}
+                viewport={{ once: true, amount: 0.7 }}
                 dir="rtl"
-                className="flex flex-col gap-2.5 items-start justify-between absolute top-[50%] translate-y-[-50%] right-96 text-black"
+                className="flex flex-col gap-2.5 items-start justify-between absolute top-80 right-96 text-black"
             >
-                <h1 className="text-5xl font-bold ">{text.title}</h1>
-                <p className="max-w-md text-2xl" dir="rtl">
-                    {text.description}
+                <h1
+                    className="text-5xl font-bold "
+                >
+                    {text?.title}
+                </h1>
+                <p className="max-w-md text-2xl">{text?.description}
                 </p>
                 <Button variant="secondary" className="w-full mt-4">
                     تواصل معنا الان
                 </Button>
-            </div>
-                <Link href="#about" className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] bottom-20  font-extrabold text-black">
-                <HiOutlineArrowDown size={30} className="animate-bounce"/>
-                    تعرف علينا
-                </Link>
-
+            </motion.div>}
+            <Link
+                href="#articles"
+                className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] top-[52rem]  font-extrabold text-black"
+            >
+                <HiOutlineArrowDown size={30} className="animate-bounce" />
+                تعرف علينا
+            </Link>
         </>
     );
 }
