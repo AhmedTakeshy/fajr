@@ -4,11 +4,11 @@ import { Slide } from "react-slideshow-image";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
-import { HiOutlineArrowDown } from "react-icons/hi";
-import { motion } from "framer-motion";
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import { useState } from "react";
 import Link from "next/link";
 import { fadeIn } from "@/lib/variants";
+import { MotionDiv } from "@/lib/motionDev";
 
 
 const big2 = "/imgs/pic2-big.jpg";
@@ -87,6 +87,7 @@ export default function CarouselItem() {
                 easing="ease"
                 duration={2000}
                 canSwipe={false}
+                infinite={false}
                 {...properties}
                 onChange={(i) => setShowText(i === 0 ? false : true)}
                 onStartChange={(i) => changeText(i)}
@@ -107,7 +108,7 @@ export default function CarouselItem() {
                     );
                 })}
             </Slide>
-            {!!text&&<motion.div
+            {!!text&&<MotionDiv
                 variants={fadeIn("up", 0.3)}
                 initial="hidden"
                 whileInView={"show"}
@@ -125,12 +126,12 @@ export default function CarouselItem() {
                 <Button variant="secondary" className="w-full mt-4">
                     تواصل معنا الان
                 </Button>
-            </motion.div>}
+            </MotionDiv>}
             <Link
                 href="#articles"
                 className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] top-[52rem]  font-extrabold text-black"
             >
-                <HiOutlineArrowDown size={30} className="animate-bounce" />
+                <MdKeyboardDoubleArrowDown size={30} className="animate-bounce" />
                 تعرف علينا
             </Link>
         </>
