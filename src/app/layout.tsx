@@ -3,14 +3,16 @@ import { El_Messiri } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/context/ThemeProvider'
 import NavMenu from '@/components/NavMenu'
+import Footer from '@/components/Footer'
+import { Inter } from 'next/font/google'
 
 const elMessiri = El_Messiri({ subsets: ["arabic"], weight: ["400", "500", "600", "700"] })
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] })
 
 export const metadata: Metadata = {
   title: 'Fajr App',
   description: 'App to help you find your dream job in the Middle East',
 }
-
 export default function RootLayout({
   children,
 }: {
@@ -25,10 +27,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header>
-            <NavMenu />
-          </header>
+          <NavMenu />
           {children}
+          <Footer font={inter}/>
         </ThemeProvider>
       </body>
     </html>
