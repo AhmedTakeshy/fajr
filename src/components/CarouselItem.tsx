@@ -109,7 +109,7 @@ export default function CarouselItem() {
                 })}
             </Slide>
             {!!text&&<MotionDiv
-                variants={fadeIn("up", 0.3)}
+                variants={fadeIn("down", 0.3)}
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{ once: true, amount: 0.7 }}
