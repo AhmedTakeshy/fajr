@@ -34,7 +34,7 @@ export default function NavMenu() {
 
     return (
         <header className={`sticky !container  z-10 top-6 `}>
-            <NavigationMenu dir="rtl" className={`!container items-center rounded-xl py-4 px-8 ${showBg && !open ? "shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""} justify-between hidden gap-2 md:flex h-full`}>
+            <NavigationMenu dir="rtl" className={`!container items-center rounded-xl max-w-none px-8 ${showBg && !open ? "py-4 shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""} justify-between hidden gap-2 md:flex h-full`}>
                 <Image className="ml-auto" src="https://okab.pixeldima.com/business-rtl/wp-content/uploads/sites/6/2021/01/okab-ar.png" width={130} height={32} alt="logo" />
                 <NavigationMenuList className="items-center justify-between hidden gap-2 md:flex ">
                     <NavigationMenuItem>
@@ -63,7 +63,7 @@ export default function NavMenu() {
                 </NavigationMenuList>
             </NavigationMenu>
             {/* Nav for small screens */}
-            <div className={`flex items-center justify-between h-full md:hidden rounded-xl py-4 px-8 my-8 ${showBg && !open ? "shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""}`}>
+            <div className={`flex items-center justify-between h-full md:hidden rounded-xl px-8 my-8 ${showBg && !open ? "py-4 shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""}`}>
                 <Image className="ml-auto" src="https://okab.pixeldima.com/business-rtl/wp-content/uploads/sites/6/2021/01/okab-ar.png" width={130} height={32} alt="logo" />
                 <Popover onOpenChange={setOpen} open={open}>
                     <PopoverTrigger asChild>

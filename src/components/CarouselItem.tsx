@@ -117,19 +117,19 @@ export default function CarouselItem() {
                 className="flex flex-col gap-2.5 items-start justify-between absolute top-80 right-96 text-black"
             >
                 <h1
-                    className="text-5xl font-bold "
+                    className="hidden text-5xl font-bold md:inline-flex"
                 >
                     {text?.title}
                 </h1>
-                <p className="max-w-md text-2xl">{text?.description}
+                <p className="hidden max-w-md text-2xl md:inline-flex">{text?.description}
                 </p>
                 <Button variant="secondary" className="w-full mt-4">
                     تواصل معنا الان
                 </Button>
             </MotionDiv>}
             <Link
-                href="#articles"
-                className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] top-[52rem]  font-extrabold text-black"
+                href="#services"
+                className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] top-[49rem] scroll-smooth font-bold text-black"
             >
                 <MdKeyboardDoubleArrowDown size={30} className="animate-bounce" />
                 تعرف علينا
