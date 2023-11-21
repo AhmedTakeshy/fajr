@@ -10,8 +10,13 @@ const elMessiri = El_Messiri({ subsets: ["arabic"], weight: ["400", "500", "600"
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] })
 
 export const metadata: Metadata = {
-  title: 'Fajr App',
-  description: 'App to help you find your dream job in the Middle East',
+  title: 'فجر',
+  description: `استحداث فرص العمل من مواقع العمل المختلفة في جميع القطاعات وتشغيل كل الاختصاصات ولكلا الجنسين
+مبدأنا الثقه
+شعارنا الامان
+غايتنا خدمتكم`,
+
+
 }
 export default function RootLayout({
   children,
