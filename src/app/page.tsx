@@ -5,7 +5,7 @@ import Team from '@/components/Team';
 export default function Home() {
 
   return (
-    <main className="relative top-[-6.5rem] md:-top-10">
+    <main className="relative top-[-11rem] md:-top-28">
       <CarouselItem />
       <Services />
       <Jobs />

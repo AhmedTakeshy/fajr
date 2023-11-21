@@ -1,4 +1,3 @@
-import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 type ServiceProps = {
     title: string;

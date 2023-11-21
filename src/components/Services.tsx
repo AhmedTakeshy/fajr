@@ -1,4 +1,3 @@
-"use client"
 import { MotionSection } from "@/lib/motionDev"
 import { fadeIn } from "@/lib/variants"
 import { HiOutlineSpeakerphone } from "react-icons/hi"
