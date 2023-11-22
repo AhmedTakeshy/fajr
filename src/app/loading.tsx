@@ -1,4 +1,4 @@
-import React from 'react'
+// "use client"
 import { ImSpinner9 } from 'react-icons/im'
 
 export default function loading() {
