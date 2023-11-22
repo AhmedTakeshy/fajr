@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function NotFound() {
     return (
-        <div className="flex items-center justify-between w-screen h-[calc(100vh-13.68rem)]">
+        <div className="flex items-center justify-between w-screen ">
             <div className="flex flex-col items-center justify-between px-5 text-gray-700 md:flex-row">
                 <div className="w-full mx-8 lg:w-1/2 dark:text-slate-100">
                     <span className="mb-8 font-bold text-blue-500 text-7xl">404</span>
