@@ -24,13 +24,12 @@ export default function SubscribeForm() {
    
 return (
     <Form {...form}>
-        <form action={subscribe} method="get" className="flex items-end justify-start gap-2">
+        <form action={subscribe} method="get" className="flex flex-col items-center justify-center gap-2">
             <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>الحساب الالكتروني</FormLabel>
                         <FormControl>
                             <Input dir="ltr" placeholder="example@email.com" {...field} />
                         </FormControl>
@@ -38,7 +37,7 @@ return (
                     </FormItem>
                 )}
             />
-            <Button size="lg" className="bg-green-400 ">اشترك</Button>
+            <Button size="lg" className="" >اشترك</Button>
         </form>
     </Form>
 )
