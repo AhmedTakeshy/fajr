@@ -16,13 +16,22 @@ export default function Footer() {
       <div className="flex flex-col items-center gap-4 mx-auto my-2">
         <h2 className='text-2xl font-bold text-left'>شـــــــركة فجـــــــر بغــــــداد</h2>
         <SubscribeForm />
-          <Link href="tel:07509952084">
-            Tel: 07509952084
+          <Link href="tel:07509952084" className=''>
+          التلفون: {" "}
+            <span className='transition-colors duration-300 hover:text-sky-600'>
+            07509952084 
+            </span>
+          </Link>
+        <Link href="mailto:Fajer.baghdad89@gmail.com" className=''>
+          البريد الالكتروني: {" "}
+          <span className='transition-colors duration-300 hover:text-sky-600'>
+            Fajer.baghdad89@gmail.com
+          </span>
           </Link>
         <div className='flex items-center justify-center gap-3 my-8'>
-          <Link href="https://www.tiktok.com/@fajer_bg?_t=8hStlZjRw18&_r=1" target="_blank" className='group'>
-            <Image src='/imgs/tiktok.svg' width={25} height={25} className='transition duration-500 opacity-0 group-hover:opacity-100' alt='TikTok logo'/>
-            <FaTiktok className="transition duration-500 opacity-100 group-hover:opacity-0" size={20} />
+          <Link href="https://www.tiktok.com/@fajer_bg?_t=8hStlZjRw18&_r=1" target="_blank" className='relative group'>
+            <Image src='/imgs/tiktok.svg' width={20} height={20} className='transition duration-500 opacity-0 group-hover:opacity-100' alt='TikTok logo'/>
+            <FaTiktok className="absolute top-[50%] translate-y-[-50%] right-0 transition duration-500 opacity-100 group-hover:opacity-0" size={20} />
           </Link>
           <Link href="https://t.me/gghhtyruiopew" target="_blank" className='group'>
             <FaTelegram size={20} className="group-hover:text-[#2AABEE] duration-500 transition" />
