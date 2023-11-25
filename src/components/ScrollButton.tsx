@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 
 export default function ScrollButton() {
     const [showBtn, setShowBtn] = useState(false);
+    
     const scrollTo = () => {
         window.scrollTo({
             top: 0,
