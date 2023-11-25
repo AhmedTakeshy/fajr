@@ -3,6 +3,7 @@ import './globals.css'
 import { ThemeProvider } from '@/context/ThemeProvider'
 import { elMessiri } from '@/lib/fonts'
 import { Toaster } from "@/components/ui/toaster"
+import AuthProvider from '@/context/AuthProvider'
 
 
 
@@ -29,8 +30,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
           <Toaster />
+          <AuthProvider>
+          {children}
+
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

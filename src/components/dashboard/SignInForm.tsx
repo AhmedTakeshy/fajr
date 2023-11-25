@@ -19,7 +19,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useToast } from "./ui/use-toast"
+import { useToast } from "@/components/ui/use-toast"
 import { ImSpinner9 } from "react-icons/im"
 
 
@@ -78,7 +78,7 @@ export function SignInForm() {
 
     return (
         <Form {...form} >
-            <div className="w-full max-sm:max-w-xs p-4 mb-4 space-y-2 border-2 rounded-md border-slate-800 dark:border-slate-400">
+            <div className="w-full p-4 mb-4 space-y-2 border-2 rounded-md max-sm:max-w-xs border-slate-800 dark:border-slate-400">
                 <form onSubmit={form.handleSubmit(onSubmit)} className="">
                     <FormField
                         control={form.control}
@@ -117,8 +117,6 @@ export function SignInForm() {
                     />
                     <Button type="submit" className="w-full !mt-4">{isSubmitting ? <ImSpinner9 className="ease-in-out animate-spin" size={25} /> : "Sign In"}</Button>
                 </form>
-                <SignWithGithub />
-                <p>If you don&apos;t have an account, please <Link href="/signup" className="text-blue-500 hover:text-blue-700">Sign up</Link></p>
             </div>
         </Form>
     )

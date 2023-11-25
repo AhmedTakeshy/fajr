@@ -5,6 +5,7 @@ import NavMenu from '@/components/main/NavMenu'
 import Footer from '@/components/main/Footer'
 import ScrollButton from '@/components/ScrollButton'
 import { elMessiri } from '@/lib/fonts'
+import Navbar from '@/components/dashboard/Navbar'
 
 
 
@@ -23,20 +24,9 @@ export default function AdminLayout({
     children: React.ReactNode
 }) {
     return (
-        // <html dir='rtl' lang="ar" className={`${elMessiri.className} `}>
         <>
+            <Navbar />
             {children}
         </>
-        // <section className="flex flex-col items-center justify-center min-h-screen text-gray-700 bg-gray-100 dark:bg-slate-900 dark:text-slate-100">
-        //     <ThemeProvider
-        //         attribute="class"
-        //         defaultTheme="system"
-        //         enableSystem
-        //         disableTransitionOnChange
-        //     >
-        //         {children}
-        //         <ScrollButton />
-        //     </ThemeProvider>
-        // </section>
     )
 }
