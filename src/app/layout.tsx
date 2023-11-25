@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/context/ThemeProvider'
-import NavMenu from '@/components/NavMenu'
-import Footer from '@/components/Footer'
-import ScrollButton from '@/components/ScrollButton'
 import { elMessiri } from '@/lib/fonts'
+import { Toaster } from "@/components/ui/toaster"
 
 
 
@@ -31,10 +29,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavMenu />
           {children}
-          <ScrollButton />
-          <Footer />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

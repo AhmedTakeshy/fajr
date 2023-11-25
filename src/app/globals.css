@@ -72,13 +72,9 @@ html {
 
 ::-webkit-scrollbar {
   width: 12px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 5px;
-}
 
  /* Handle */
 ::-webkit-scrollbar-thumb {
