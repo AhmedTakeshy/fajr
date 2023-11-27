@@ -27,7 +27,7 @@ export default function NavMenu() {
     const image = session?.user?.image; 
     
     return (
-        <div dir="rtl">
+        <header dir="rtl">
             <Popover onOpenChange={setOpen} open={open}>
                 <PopoverTrigger asChild>
                     <Button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -42,23 +42,23 @@ export default function NavMenu() {
                         <NavigationMenu>
                             <NavigationMenuList className="flex flex-col items-center justify-center gap-2">
                                 <NavigationMenuItem>
-                                    <Link href="/" legacyBehavior passHref>
+                                    <Link href="/admin" legacyBehavior passHref>
                                         <NavigationMenuLink onClick={() => setOpen(false) } className={navigationMenuTriggerStyle()}>الرئيسية</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <Link href="/posts" legacyBehavior passHref>
+                                    <Link href="/admin/posts" legacyBehavior passHref>
                                         <NavigationMenuLink onClick={() => setOpen(false) } className={navigationMenuTriggerStyle()}>منشورات</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                                    <Link href="/profile" legacyBehavior passHref>
+                                    <Link href="/admin/accounts" legacyBehavior passHref>
                                         <NavigationMenuLink onClick={() => setOpen(false) } className={navigationMenuTriggerStyle()}>حسابات</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
-                        <div className="flex flex-col w-full md:w-full md:hidden">
+                        <section className="flex flex-col w-full md:w-full md:hidden">
                             <div className="flex flex-col items-center justify-center gap-3 p-4 mt-4 font-medium rounded-lg md:p-0 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:dark:bg-gray-900">
                                 {status === "loading" && <ImSpinner9 className="ease-in-out animate-spin" size={25} />}
                                 {
@@ -72,7 +72,7 @@ export default function NavMenu() {
                                 }
                                 {session?.user && (<SignoutButton />)}
                             </div>
-                        </div>
+                        </section>
 
                     </div>
                 </PopoverContent>
@@ -85,18 +85,18 @@ export default function NavMenu() {
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link href="/posts" legacyBehavior passHref>
+                        <Link href="/admin/posts" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>منشورات</NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link href="/profile" legacyBehavior passHref>
+                        <Link href="/admin/accounts" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>حسابات</NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
-        </div>
+        </header>
 
     )
 }
