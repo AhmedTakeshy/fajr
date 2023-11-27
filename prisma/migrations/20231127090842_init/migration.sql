@@ -41,6 +41,9 @@ CREATE TABLE "email_subscription" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_name_key" ON "User"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "email_subscription_email_key" ON "email_subscription"("email");
 
 -- AddForeignKey
