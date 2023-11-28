@@ -71,7 +71,7 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
   border-radius: 10px;
 }
 

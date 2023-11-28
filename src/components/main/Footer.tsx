@@ -13,10 +13,10 @@ export default function Footer() {
 
   return (
     <footer className='flex flex-col items-center justify-center w-full mt-auto bg-gray-300 pt-9 dark:bg-sky-950'>
-      <div className="flex flex-col items-center gap-4 mx-auto my-2">
+      <div className="flex flex-col items-center gap-2 mx-auto my-2">
         <h2 className='text-2xl font-bold text-left'>شـــــــركة فجـــــــر بغــــــداد</h2>
         <SubscribeForm />
-          <Link href="tel:07509952084" className=''>
+          <Link href="tel:07509952084" className='mt-4'>
           التلفون: {" "}
             <span className='transition-colors duration-300 hover:text-sky-600'>
             07509952084 

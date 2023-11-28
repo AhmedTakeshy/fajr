@@ -129,7 +129,7 @@ export default function CarouselItem() {
             </MotionDiv>}
             <Link
                 href="#services"
-                className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] top-[49rem] scroll-smooth font-bold text-black"
+                className="flex flex-col items-center gap-1 absolute left-[50%] translate-x-[-50%] top-[45rem]  2xl:top-[49rem] scroll-smooth font-bold text-black"
             >
                 <MdKeyboardDoubleArrowDown size={30} className="animate-bounce" />
                 تعرف علينا
