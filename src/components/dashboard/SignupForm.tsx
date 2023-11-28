@@ -2,9 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
-
-import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
@@ -16,11 +13,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
-import { ChangeEvent, useState } from "react"
+import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
-import { ImSpinner9 } from "react-icons/im"
+
 import { SignUpFormSchema, signUpFormSchema } from "@/lib/formSchemas"
-import { Label } from "@/components/ui/label"
 import {
     Select,
     SelectContent,
@@ -29,20 +25,21 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-import { useFormStatus } from "react-dom"
+
+import { signUpAction } from "@/lib/actions"
+import SubmitButton from "../SubmitButton"
 
 
 
 
 export function SignUpForm() {
     const { toast } = useToast()
-
+    const [isPending, setIsPending] = useState<boolean>(false)
     const [showPassword, setShowPassword] = useState<{ password: boolean, confirmPassword: boolean }>
         ({
             password: false,
             confirmPassword: false
-        });
-    const {pending} = useFormStatus()
+        })
     const router = useRouter()
 
 
@@ -59,22 +56,49 @@ export function SignUpForm() {
     })
 
 
-    async function signUp(formData: FormData) {
-        const data = {
-            username: formData.get("username"),
-            email: formData.get("email"),
-            password: formData.get("password"),
-            confirmPassword: formData.get("confirmPassword"),
-            role: formData.get("role"),
+    async function signUp(data: SignUpFormSchema) {
+        setIsPending(true)
+        try{
+            const result = await signUpFormSchema.safeParseAsync(data)
+            if (!result.success) {
+    
+                return
+            }
+            const res = await signUpAction(result.data)
+            if (!res?.error && res?.status === 201) {
+                toast({
+                    title: "مرحبا بك",
+                    description: res?.message,
+                    duration: 5000,
+                })
+                form.reset()
+                router.replace("/admin/accounts")
+            } else {
+    
+                toast({
+                    title: "للاسف",
+                    description: res?.message,
+                    duration: 5000,
+                    variant: "destructive"
+                })
+            }
+        } catch (error) {
+
+            toast({
+                title: "للاسف",
+                description: "هناك شيئا خاطئ لم يتم إنشاء الحساب",
+                duration: 5000,
+                variant: "destructive"
+            })
         }
-
-        console.log(data)
-
+        setIsPending(false)
     }
     return (
         <Form {...form} >
             <div className="w-full max-sm:max-w-xs p-4 mb-4  border-2 rounded-md border-slate-800 dark:border-slate-400">
-                <form action={signUp} className="space-y-2">
+                <form 
+                    onSubmit={form.handleSubmit(signUp)} 
+                    className="space-y-2">
                     <FormField
                         control={form.control}
                         name="username"
@@ -148,15 +172,15 @@ export function SignUpForm() {
                         control={form.control}
                         name="role"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="!mt-4">
                                 <FormControl>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <Select {...field} onValueChange={field.onChange} value={field.value}>
                                         <SelectTrigger className="w-[180px]">
                                             <SelectValue placeholder="الصلاحيات" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="admin">جزئي الصلاحيات</SelectItem>
-                                            <SelectItem value="super">كامل الصلاحيات</SelectItem>
+                                            <SelectItem value="Admin">جزئي الصلاحيات</SelectItem>
+                                            <SelectItem value="SuperAdmin">كامل الصلاحيات</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
@@ -164,7 +188,7 @@ export function SignUpForm() {
                             </FormItem>
                         )}
                     />
-                    <Button disabled={pending} type="submit" className="w-full !mt-4">{pending ? <ImSpinner9 className="ease-in-out animate-spin" size={25} /> : "إنشاء حساب"}</Button>
+                    <SubmitButton pending={isPending} text="إنشاء حساب"/>
                 </form>
             </div>
         </Form>
