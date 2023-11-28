@@ -48,6 +48,7 @@ export function SignInForm() {
             }
             const result = await signInFormSchema.safeParseAsync(data)
             if (!result.success) {
+                console.log(result.error.issues)
                 // toast({
                 //     title: "للاسف",
                 //     description: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور",
