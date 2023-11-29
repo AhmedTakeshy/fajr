@@ -15,9 +15,9 @@ import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
-import { signInAction } from "@/lib/actions"
 import { SignInFormSchema, signInFormSchema } from "@/lib/formSchemas"
 import SubmitButton from "../SubmitButton"
+import { signIn } from "next-auth/react"
 
 
 
@@ -38,7 +38,7 @@ export function SignInForm() {
         },
     })
 
-    async function signIn(data: SignInFormSchema) {
+    async function signInCredentials(data: SignInFormSchema) {
         setIsPending(true)
         try {
             const result = await signInFormSchema.safeParseAsync(data)
@@ -51,19 +51,25 @@ export function SignInForm() {
                 })
                 return
             }
-            const res = await signInAction(result.data)
-            if (!res?.error && res?.status === 200) {
+            const values = result.data
+            const signInData = await signIn("credentials", {
+                redirect: false,
+                email: values.email.toLowerCase(),
+                password: values.password,
+            })
+            if (signInData?.status === 200) {
                 toast({
                     title: "مرحبا بك",
-                    description: res?.message,
+                    description: "تم تسجيل الدخول بنجاح",
                     duration: 5000,
                     
                 })
                 router.replace("/admin")
             } else {
+                console.log("🚀 ~ file: SignInForm.tsx:61 ~ signInCredentials ~ signInData:", signInData)
                 toast({
                     title: "للاسف",
-                    description: res?.message,
+                    description: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور",
                     duration: 5000,
                     variant: "destructive"
                 })
@@ -71,7 +77,7 @@ export function SignInForm() {
         } catch (error) {
             toast({
                 title: "للاسف",
-                description: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور",
+                description: "خطأ في تسجيل الدخول",
                 duration: 5000,
                 variant: "destructive"
             })
@@ -82,7 +88,7 @@ export function SignInForm() {
     return (
         <Form {...form} >
             <div className="w-full p-4 mb-4 space-y-2 border-2 rounded-md max-sm:max-w-xs border-slate-800 dark:border-slate-400">
-                <form onSubmit={form.handleSubmit(signIn)} className="">
+                <form onSubmit={form.handleSubmit(signInCredentials)} className="">
                     <FormField
                         control={form.control}
                         name="email"

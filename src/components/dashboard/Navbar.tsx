@@ -1,4 +1,3 @@
-import { FaKhanda } from 'react-icons/fa';
 import Link from 'next/link';
 import { ModeToggler } from '../ModeToggler';
 import { buttonVariants } from '../ui/button';
@@ -13,8 +12,8 @@ import Image from 'next/image';
 
 export default async function Navbar() {
     const session = await getServerSession(authOptions)
-    const avatar = `https://ui-avatars.com/api/?name=${session?.user?.name}&background=random&rounded=true&size=128&font-size=0.50`;
-    const image = session?.user?.image;
+    // const avatar = `https://ui-avatars.com/api/?name=${session?.user?.name}&background=random&rounded=true&size=128&font-size=0.50`;
+    // const image = session?.user?.image;
 
     return (
         <header dir='rtl' className="bg-slate-200 dark:bg-gray-900">
@@ -31,7 +30,7 @@ export default async function Navbar() {
                         {
                             session?.user ?
                                 <div className='flex items-center justify-center gap-2'>
-                                    <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="object-cover rounded-full" />
+                                    {/* <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="object-cover rounded-full" /> */}
                                     <p>{session.user.name}</p>
                                 </div>
                                 :

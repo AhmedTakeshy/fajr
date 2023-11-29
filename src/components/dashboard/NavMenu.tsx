@@ -10,7 +10,6 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 import SignoutButton from "./SignoutButton"
 import { buttonVariants, Button } from "../ui/button"
-import Image from "next/image"
 import { ImSpinner9 } from "react-icons/im"
 import {
     Popover,
@@ -23,8 +22,8 @@ import { useState } from "react"
 export default function NavMenu() {
     const { data: session, status } = useSession()
     const [open, setOpen] = useState<boolean>(false)
-    const avatar = `https://ui-avatars.com/api/?name=${session?.user?.name}&background=random&rounded=true&size=128&font-size=0.50`;
-    const image = session?.user?.image; 
+    // const avatar = `https://ui-avatars.com/api/?name=${session?.user?.name}&background=random&rounded=true&size=128&font-size=0.50`;
+    // const image = session?.user?.image; 
     
     return (
         <header dir="rtl">
@@ -64,7 +63,7 @@ export default function NavMenu() {
                                 {
                                     session?.user ?
                                         <div className='flex items-center justify-center w-full gap-2'>
-                                            <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="hidden object-cover rounded-full md:inline-block" />
+                                            {/* <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="hidden object-cover rounded-full md:inline-block" /> */}
                                             <p className='w-2/4 p-2 text-center border rounded-lg md:border-none md:p-0 border-slate-900'>{session.user.name}</p>
                                         </div>
                                         :
