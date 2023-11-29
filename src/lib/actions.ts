@@ -32,7 +32,7 @@ export async function signInAction(values: SignInFormSchema) {
         }
     } catch (error) {
         console.log(error);
-        return { error: true, message: "خطأ في تسجيل الدخول", status: 401 }
+        return { error: true, message: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور", status: 401 }
     }
 }
 

@@ -61,7 +61,12 @@ export function SignUpForm() {
         try{
             const result = await signUpFormSchema.safeParseAsync(data)
             if (!result.success) {
-    
+                toast({
+                    title: "للاسف",
+                    description: "هناك شيئا خاطئ مع ادخال البيانات",
+                    duration: 5000,
+                    variant: "destructive"
+                })
                 return
             }
             const res = await signUpAction(result.data)
