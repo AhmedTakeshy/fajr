@@ -58,7 +58,7 @@ export default function NavMenu() {
                             </NavigationMenuList>
                         </NavigationMenu>
                         <section className="flex flex-col w-full md:w-full md:hidden">
-                            <div className="flex flex-col items-center justify-center gap-3 p-4 mt-4 font-medium rounded-lg md:p-0 md:flex-row  md:mt-0 md:border-0 md:dark:bg-gray-900">
+                            <div className="flex flex-col items-center justify-center gap-3 p-4 mt-4 font-medium rounded-lg md:p-0 md:flex-row md:mt-0 md:border-0 md:dark:bg-gray-900">
                                 {status === "loading" && <ImSpinner9 className="ease-in-out animate-spin" size={25} />}
                                 {
                                     session?.user &&
