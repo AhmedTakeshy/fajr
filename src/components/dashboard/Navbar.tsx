@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ModeToggler } from '../ModeToggler';
-import { buttonVariants } from '../ui/button';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import SignoutButton from './SignoutButton';
@@ -26,15 +25,13 @@ export default async function Navbar() {
                     <NavMenu />
                 </div>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                    <div className="flex flex-col gap-2 p-4 mt-4 font-medium border rounded-lg md:p-0 md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 md:items-center">
+                    <div className="flex flex-col gap-2 p-4 mt-4 font-medium border rounded-lg md:p-0 md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 md:items-center">
                         {
-                            session?.user ?
-                                <div className='flex items-center justify-center gap-2'>
-                                    {/* <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="object-cover rounded-full" /> */}
-                                    <p>{session.user.name}</p>
-                                </div>
-                                :
-                                <Link href="/signin" className={buttonVariants({ variant: "outline" })}>سجل دخول</Link>
+                            session?.user &&
+                            (<div className='flex items-center justify-center gap-2'>
+                                {/* <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="object-cover rounded-full" /> */}
+                                <p>{session.user.name}</p>
+                            </div>)
                         }
                         {session?.user && (<SignoutButton />)}
                         <ModeToggler className="md:inline-flex" />

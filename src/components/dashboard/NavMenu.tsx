@@ -9,7 +9,7 @@ import {
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import SignoutButton from "./SignoutButton"
-import { buttonVariants, Button } from "../ui/button"
+import { Button } from "../ui/button"
 import { ImSpinner9 } from "react-icons/im"
 import {
     Popover,
@@ -58,16 +58,14 @@ export default function NavMenu() {
                             </NavigationMenuList>
                         </NavigationMenu>
                         <section className="flex flex-col w-full md:w-full md:hidden">
-                            <div className="flex flex-col items-center justify-center gap-3 p-4 mt-4 font-medium rounded-lg md:p-0 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:dark:bg-gray-900">
+                            <div className="flex flex-col items-center justify-center gap-3 p-4 mt-4 font-medium rounded-lg md:p-0 md:flex-row  md:mt-0 md:border-0 md:dark:bg-gray-900">
                                 {status === "loading" && <ImSpinner9 className="ease-in-out animate-spin" size={25} />}
                                 {
-                                    session?.user ?
-                                        <div className='flex items-center justify-center w-full gap-2'>
+                                    session?.user &&
+                                        (<div className='flex items-center justify-center w-full gap-2'>
                                             {/* <Image src={image && !image.includes("fbsbx") ? image : avatar} alt={`${session.user.name} pic`} width={35} height={35} className="hidden object-cover rounded-full md:inline-block" /> */}
                                             <p className='w-2/4 p-2 text-center border rounded-lg md:border-none md:p-0 border-slate-900'>{session.user.name}</p>
-                                        </div>
-                                        :
-                                        <Link onClick={() => setOpen(false)} href="/signin" className={`${buttonVariants({ variant: "outline" })} w-full`}>سجل دخول</Link>
+                                        </div>)
                                 }
                                 {session?.user && (<SignoutButton />)}
                             </div>
