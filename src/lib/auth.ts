@@ -29,6 +29,7 @@ export const authOptions: NextAuthOptions = {
                         email: credentials.email
                     }
                 })
+                console.log("🚀 ~ file: auth.ts:32 ~ authorize ~ existingUser:", existingUser)
                 if (!existingUser) return null;
 
                 const isPasswordValid = await bcrypt.compare(credentials.password, existingUser.password!)
