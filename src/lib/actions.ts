@@ -11,32 +11,6 @@ export const subscribe = async (formData: FormData) => {
 }
 
 
-// sign-in
-// export async function signInAction(values: SignInFormSchema) {
-//     try {
-//         const result = await signInFormSchema.safeParseAsync(values)
-//         if (!result.success) {
-//             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
-//         }
-        
-//         const signInData = await signIn("credentials", {
-//             redirect: false,
-//             email: values.email.toLowerCase(),
-//             password: values.password,
-//         })
-//         if (signInData?.status === 200) {
-//             return { error: false, message: "تم تسجيل الدخول بنجاح", status: 200 }
-//         }
-
-//         if (signInData?.status === 401) {
-//             return { error: true, message: "خطأ في تسجيل الدخول", status: 401 }
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         return { error: true, message: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور", status: 401 }
-//     }
-// }
-
 // sign-up
 export async function signUpAction(values: SignUpFormSchema) {
     try {
@@ -82,3 +56,36 @@ export async function signUpAction(values: SignUpFormSchema) {
     }
 
 }
+
+export async function getPosts() {
+    const posts = await prisma.post.findMany({})
+    return posts
+}
+
+
+
+// sign-in
+// export async function signInAction(values: SignInFormSchema) {
+//     try {
+//         const result = await signInFormSchema.safeParseAsync(values)
+//         if (!result.success) {
+//             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
+//         }
+        
+//         const signInData = await signIn("credentials", {
+//             redirect: false,
+//             email: values.email.toLowerCase(),
+//             password: values.password,
+//         })
+//         if (signInData?.status === 200) {
+//             return { error: false, message: "تم تسجيل الدخول بنجاح", status: 200 }
+//         }
+
+//         if (signInData?.status === 401) {
+//             return { error: true, message: "خطأ في تسجيل الدخول", status: 401 }
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         return { error: true, message: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور", status: 401 }
+//     }
+// }
