@@ -1,6 +1,6 @@
 "use server"
 
-import { SignUpFormSchema, signUpFormSchema } from "./formSchemas";
+import { PostFormSchema, SignUpFormSchema, signUpFormSchema } from "./formSchemas";
 import { prisma } from "./prisma";
 import { hash } from "bcrypt";
 import { revalidatePath } from "next/cache";
@@ -57,9 +57,54 @@ export async function signUpAction(values: SignUpFormSchema) {
 
 }
 
+//posts
 export async function getPosts() {
     const posts = await prisma.post.findMany({})
     return posts
+}
+
+export async function getPostById(id: number) {
+    const post = await prisma.post.findUnique({
+        where: {
+            id
+        }
+    })
+    return post
+}
+
+export async function createPost({ values,email }: { values: PostFormSchema, email: string}) {
+    const user = await prisma.user.findUnique({
+        where: {
+            email
+        }
+    })
+    const result = await prisma.post.create({
+        data: {
+            title: values.title,
+            content: values.content,
+            published: values.published,
+            author: {
+                connect: {
+                    id: user?.id
+                }
+            
+            }
+        }
+    })
+    return result
+}
+
+export async function getUsers() {
+    const users = await prisma.user.findMany({})
+    return users
+}
+export async function getUserByEmail(email: string) {
+    const user = await prisma.user.findUnique({
+        where: {
+            email
+        }
+    })
+    return user
 }
 
 

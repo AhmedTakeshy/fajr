@@ -28,5 +28,18 @@ export const signUpFormSchema = z.object({
     message: "كلمة السر غير متطابقة",
 })
 
+export const postFormSchema = z.object({
+    title: z.string().min(3, {
+        message: "عنوان المقال يجب ان لا يقل عن 3 حروف",
+    }),
+    content: z.string().min(3, {
+        message: "محتوى المقال يجب ان لا يقل عن 3 حروف",
+    }),
+    published: z.boolean().default(true),
+    
+})
+
 export type SignInFormSchema = z.infer<typeof signInFormSchema>
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
+
+export type PostFormSchema = z.infer<typeof postFormSchema>
