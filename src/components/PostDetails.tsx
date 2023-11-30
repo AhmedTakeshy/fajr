@@ -3,7 +3,7 @@ import Image from "next/image"
 import React from "react";
 
 type Props = {
-    id:number;
+    id:bigint;
     img?: string
     title: string
     description: string

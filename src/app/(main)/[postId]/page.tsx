@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 export async function generateMetaData({ params }: Props) {
   const { postId } = params
   
-  const post = await getPostById(Number(postId))
+  const post = await getPostById(BigInt(postId))
   const metadata: Metadata = {
     title: post?.title,
     description: post?.content,
@@ -32,7 +32,7 @@ export async function generateMetaData({ params }: Props) {
 
 export default async function postId({params}:Props) {
   const { postId } = params
-  const post = await getPostById(Number(postId))
+  const post = await getPostById(BigInt(postId))
   return (
     <div className='flex flex-col justify-center items-center my-12'>
       <PostDetails id={post?.id!} title={post?.title!} description={post?.content!} />

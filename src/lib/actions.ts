@@ -12,7 +12,7 @@ export const subscribe = async (formData: FormData) => {
 
 
 // sign-up
-export async function signUpAction(values: SignUpFormSchema) {
+export async function signUp(values: SignUpFormSchema) {
     try {
         const result = await signUpFormSchema.safeParseAsync(values)
         if (!result.success) {
@@ -63,14 +63,13 @@ export async function getPosts() {
         return posts
 }
 
-export async function getPostById(id: number) {
+export async function getPostById(id: bigint) {
         const post = await prisma.post.findUnique({
             where: {
                 id
             }
         })
         return post
-   
 }
 
 export async function createPost( values : PostFormSchema,email: string) {

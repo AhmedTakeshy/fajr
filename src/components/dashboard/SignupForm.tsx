@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select"
 
 
-import { signUpAction } from "@/lib/actions"
+import { signUp } from "@/lib/actions"
 import SubmitButton from "../SubmitButton"
 
 
@@ -56,7 +56,7 @@ export function SignUpForm() {
     })
 
 
-    async function signUp(data: SignUpFormSchema) {
+    async function signUpAction(data: SignUpFormSchema) {
         setIsPending(true)
         try{
             const result = await signUpFormSchema.safeParseAsync(data)
@@ -69,7 +69,7 @@ export function SignUpForm() {
                 })
                 return
             }
-            const res = await signUpAction(result.data)
+            const res = await signUp(result.data)
             if (!res?.error && res?.status === 201) {
                 toast({
                     title: "مرحبا بك",
@@ -102,7 +102,7 @@ export function SignUpForm() {
         <Form {...form} >
             <div className="w-full max-sm:max-w-xs p-4 mb-4  border-2 rounded-md border-slate-800 dark:border-slate-400">
                 <form 
-                    onSubmit={form.handleSubmit(signUp)} 
+                    onSubmit={form.handleSubmit(signUpAction)} 
                     className="space-y-2">
                     <FormField
                         control={form.control}
