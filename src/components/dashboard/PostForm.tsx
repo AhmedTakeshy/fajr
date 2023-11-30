@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {  useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Textarea } from '@/components/ui/textarea'
-import {  useState } from 'react'
+import {  ChangeEvent, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { toast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
@@ -33,26 +33,25 @@ export default function PostForm() {
     const [isPending, setIsPending] = useState<boolean>(false)
     const router = useRouter()
 
-
-    const formSchema = z.object({
-        title: z.string().min(5, "من فضلك ادخل عنوان لا يقل عن 5 احروف"),
-        content: z.string().min(10, "من فضلك ادخل محتوى لا يقل عن 10 احروف")
-    })
-
+    const autoResizeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if (e) {
+            e.target.style.height = 'auto';
+            e.target.style.height = `${e.target.scrollHeight}px`;
+        }
+    };
 
     const form = useForm<PostFormSchema>({
         resolver: zodResolver(postFormSchema),
         defaultValues: {
             title:  "",
+            topic: "",
             content: "",
         },
     })
 
 
     const SubmitAction = async (values: PostFormSchema) => {
-        setIsPending(true)
-        // let url = `/admin/posts/write`
-        // if (method === "PUT") { url = `/api/post?id=${data?.id}`}        
+        setIsPending(true)     
         try {
             const result = await postFormSchema.safeParseAsync(values)
             if (!result.success) {
@@ -75,15 +74,6 @@ export default function PostForm() {
                 form.reset()
                 router.push("/admin/posts")
             }
-            // if (res.status === 200) {
-            //     toast({
-            //         title: "تم بنجاح!",
-            //         description: `تم تحديث المقال بنجاح`,
-            //         duration: 3000,
-            //     })
-            //     router.replace(`/posts/${data?.id}`)
-            // }
-            setIsPending(false)
         } catch (error) {
             toast({
                 title: "Oops!",
@@ -95,12 +85,6 @@ export default function PostForm() {
         }
     }
     return (
-        
-            // <Dialog open={open} onOpenChange={setOpen}>
-            //     <DialogTrigger asChild>
-            //         <Button variant="outline" className='w-3/4'>Write a post.</Button>
-            //     </DialogTrigger>
-            //     <DialogContent>
                     <div className='w-full max-w-screen-md border-2 rounded-xl'>
                         <div className="flex flex-col justify-start p-4 space-y-4 rounded-md shadow-lg ">
                             <Form {...form}>
@@ -118,19 +102,19 @@ export default function PostForm() {
                                             </FormItem>
                                         )}
                                     />
-                                    {/* <FormField
+                                    <FormField
                                         control={form.control}
                                         name="topic"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Topic</FormLabel>
+                                                <FormLabel>الموضوع</FormLabel>
                                                 <FormControl>
-                                                    <Input spellCheck placeholder="Maybe something creative" {...field} />
+                                                    <Input spellCheck placeholder="ما هو الموضوع اليوم؟؟" {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
-                                    /> */}
+                                    />
                                     <FormField
                                         control={form.control}
                                         name="content"
@@ -138,7 +122,7 @@ export default function PostForm() {
                                             <FormItem>
                                                 <FormLabel>المحتوي</FormLabel>
                                                 <FormControl>
-                                                    <Textarea itemType="string" spellCheck={true} className='h-20' placeholder="اكتب تفاصيل المقال" {...field} />
+                                                    <Textarea itemType="string" spellCheck={true} className='min-h-[5rem] resize-none overflow-hidden break-all whitespace-pre-line' placeholder="اكتب تفاصيل المقال" {...field} onChange={(e) => { field.onChange(e); autoResizeTextarea(e) }} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -158,8 +142,6 @@ export default function PostForm() {
                             </Form>
                         </div >
                     </div >
-            //     </DialogContent>
-            // </Dialog>
             // <div className='w-full mt-12 border-2 rounded-xl '>
             //     <div className="flex flex-col justify-start p-4 space-y-4 rounded-md shadow-lg ">
             //         <Form {...form}>

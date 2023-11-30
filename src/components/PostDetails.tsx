@@ -3,9 +3,10 @@ import Image from "next/image"
 import React from "react";
 
 type Props = {
-    id:bigint;
+    publicId: string
     img?: string
     title: string
+    topic?: string
     description: string
     author?: {
         name: string
@@ -13,10 +14,10 @@ type Props = {
     updatedAt?: string
 }
 
-export default function PostDetails({ img, title, description, author,updatedAt,id }: Props) {
+export default function PostDetails({ img, title, description, author, updatedAt, publicId, topic }: Props) {
     const newDate  = formattedDate(updatedAt!)
     return (
-        <React.Fragment key={id}>
+        <React.Fragment key={publicId}>
             <div className="p-4 dark:bg-slate-700 bg-slate-300 md:p-8 rounded-xl">
                 <Image
                 width={551}
@@ -25,7 +26,7 @@ export default function PostDetails({ img, title, description, author,updatedAt,
                     className="object-cover object-center w-full rounded-lg h-80"
                     src="https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
                 />
-                <p className="mt-2 text-base font-semibold text-indigo-500">Science</p>
+                <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>
                 <h1
                     className="mt-1 text-xl font-semibold leading-none text-gray-900 capitalize truncate dark:text-gray-400"
                 >
