@@ -32,6 +32,7 @@ export const postFormSchema = z.object({
     title: z.string().min(3, {
         message: "عنوان المقال يجب ان لا يقل عن 3 حروف",
     }),
+    topic: z.string().optional(),
     content: z.string().min(3, {
         message: "محتوى المقال يجب ان لا يقل عن 3 حروف",
     }),

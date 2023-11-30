@@ -5,15 +5,15 @@ import { MdArrowRightAlt } from 'react-icons/md'
 import { formattedDate } from '@/lib/helpers';
 
 type JobProps = {
-    id:number;
     title: string;
     description: string;
     img?:string;
-    date?: string;
+    updatedAt?: Date;
+    publicId:string;
 };
 
-export default function PostItem({ title, description, img,id, date }: JobProps) {
-    const newDate = formattedDate(date!)
+export default function PostItem({ title, description, img, updatedAt, publicId }: JobProps) {
+    const newDate = formattedDate(updatedAt?.toDateString()!)
     return (
         <MotionArticle
             whileHover={{
@@ -26,11 +26,11 @@ export default function PostItem({ title, description, img,id, date }: JobProps)
                 <h3 className="mb-2 text-2xl dark:text-slate-200 text-slate-400">{title}</h3>
                 <p className="text-xl dark:text-slate-500 text-slate-700">{description}</p>
             </div>
-            <Link href={`/${id}`} className="flex items-center justify-between w-full px-5 py-3 text-xl text-right text-white rounded-b-lg dark:hover:text-cyan-400 group hover:text-sky-800">
+            <Link href={{href:"/post",query:`${publicId}`}} className="flex items-center justify-between w-full px-5 py-3 text-xl text-right text-white rounded-b-lg dark:hover:text-cyan-400 group hover:text-sky-800">
                 المزيد
                 <MdArrowRightAlt size={30} className="transition-transform duration-500 rotate-180 group-hover:-translate-x-4" />
             </Link>
-            {!!date&&(<span>{newDate}</span>)}
+            {!!updatedAt &&(<span>{newDate}</span>)}
         </MotionArticle>
     )
 }
