@@ -24,19 +24,11 @@ export async function signUp(values: SignUpFormSchema) {
                 email,
             }
         })
-        const existedUserUsername = await prisma.user.findUnique({
-            where: {
-                name: username,
-            }
-        })
         if (existedUserEmail) {
             return { error: true, message: "يوجد مستخدم مع هذا الحساب بالفعل", status: 409 }
         }
-        if (existedUserUsername) {
-            return { error: true, message: "يوجد مستخدم مع هذا الاسم بالفعل", status: 409 }
-        }
         const hashedPassword = await hash(password, 10)
-        if (!existedUserEmail && !existedUserUsername) {
+        if (!existedUserEmail) {
             const user = await prisma.user.create({
                 data: {
                     name: username,
@@ -45,7 +37,6 @@ export async function signUp(values: SignUpFormSchema) {
                     role,
                 }
             })
-            console.log("🚀 ~ file: actions.ts:74 ~ signUpAction ~ user:", user)
             const { email: userEmail } = user
             revalidatePath("/admin/accounts")
             return { error: false, message: `لفد تم إنشاء حساب بنجاح بهذا البريد الالكتروني  ${userEmail}`, status: 201 }
