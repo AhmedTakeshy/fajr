@@ -13,7 +13,7 @@ export default async function Posts() {
                 <Link href="/admin/posts/write" className='inline-flex items-center'>
                     اكتب مقال <FiEdit size={20} className="mr-2" /></Link> 
             </Button>
-        <div className="grid gap-10 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-center">
+        <div className="grid gap-10 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-center mt-8">
             <JobItem id={1} title="مطور ويب" description="الآن، كان أبحرت من نانتوكيت في البداية من على خط الموسم على اساس. لا المسعى ممكن داخل المستودع." img="/images/cat-01.jpg" />
         </div>
         </div>
