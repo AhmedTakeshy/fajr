@@ -59,17 +59,18 @@ export async function signUpAction(values: SignUpFormSchema) {
 
 //posts
 export async function getPosts() {
-    const posts = await prisma.post.findMany({})
-    return posts
+        const posts = await prisma.post.findMany({})
+        return posts
 }
 
 export async function getPostById(id: number) {
-    const post = await prisma.post.findUnique({
-        where: {
-            id
-        }
-    })
-    return post
+        const post = await prisma.post.findUnique({
+            where: {
+                id
+            }
+        })
+        return post
+   
 }
 
 export async function createPost( values : PostFormSchema,email: string) {
@@ -84,7 +85,7 @@ export async function createPost( values : PostFormSchema,email: string) {
             }
         })
         const data = result.data
-        const createdPost = await prisma.post.create({
+        await prisma.post.create({
             data: {
                 title: data.title,
                 content: data.content,
