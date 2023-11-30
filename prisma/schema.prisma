@@ -11,9 +11,10 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        BigInt   @id @default(autoincrement())
+  publicId  String   @unique @default(nanoid())
   email     String   @unique
-  name      String? @unique
+  name      String
   password  String
   role      Role     @default(Admin)
   posts     Post[]
@@ -22,18 +23,21 @@ model User {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        BigInt   @id @default(autoincrement())
+  publicId  String   @unique @default(nanoid())
   title     String
-  content   String?
+  topic     String?
+  content   String
+  image     String?
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  BigInt
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model EmailNewsletterSubscription {
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
