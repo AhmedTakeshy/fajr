@@ -14,7 +14,6 @@ type JobProps = {
 };
 
 export default function PostItem({ title, description, img, updatedAt, publicId,topic }: JobProps) {
-    console.log("🚀 ~ file: PostItem.tsx:16 ~ PostItem ~ publicId:", publicId)
     const newDate = formattedDate(updatedAt?.toDateString()!)
     return (
         <MotionArticle
@@ -29,7 +28,7 @@ export default function PostItem({ title, description, img, updatedAt, publicId,
                 <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>
                 <p className="text-xl line-clamp-6 dark:text-slate-500 text-slate-700">{description}</p>
             </div>
-            <Link href={{href:"/post",query:`${publicId}`}} className="flex items-center justify-between w-full px-5 py-3 text-xl text-right text-white rounded-b-lg dark:hover:text-cyan-400 group hover:text-sky-800">
+            <Link href={{ pathname: "/post", query: { id: `${publicId}` }}} className="flex items-center justify-between w-full px-5 py-3 text-xl text-right text-white rounded-b-lg dark:hover:text-cyan-400 group hover:text-sky-800">
                 المزيد
                 <MdArrowRightAlt size={30} className="transition-transform duration-500 rotate-180 group-hover:-translate-x-4" />
             </Link>
