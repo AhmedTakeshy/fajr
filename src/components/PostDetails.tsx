@@ -23,7 +23,7 @@ export default function PostDetails({ img, title, description, author, updatedAt
                 width={551}
                 height={320}
                 alt={`post image`}
-                    className="object-cover object-center w-full rounded-lg h-80"
+                    className="object-cover object-center mx-auto rounded-lg h-80"
                     src="https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
                 />
                 <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>

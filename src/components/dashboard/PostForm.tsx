@@ -29,7 +29,6 @@ import SubmitButton from '../SubmitButton'
 
 export default function PostForm() {
     const { data: session } = useSession()
-    const [open, setOpen] = useState<boolean>(false)
     const [isPending, setIsPending] = useState<boolean>(false)
     const router = useRouter()
 
@@ -70,9 +69,8 @@ export default function PostForm() {
                     description: `تم انشاء المقال بنجاح`,
                     duration: 3000,
                 })
-                setOpen(false)
-                form.reset()
                 router.push("/admin/posts")
+                form.reset()
             }
         } catch (error) {
             toast({

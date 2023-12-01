@@ -5,6 +5,7 @@ import { MdArrowRightAlt } from 'react-icons/md'
 import { formattedDate } from '@/lib/helpers';
 
 type JobProps = {
+    id:bigint;
     title: string;
     topic?: string;
     description: string;
@@ -13,8 +14,9 @@ type JobProps = {
     publicId:string;
 };
 
-export default function PostItem({ title, description, img, updatedAt, publicId,topic }: JobProps) {
-    const newDate = formattedDate(updatedAt?.toDateString()!)
+export default function PostItem({ title, description, img, updatedAt, publicId,topic,id }: JobProps) {
+    const newDate = formattedDate(updatedAt?.toISOString()!)
+    
     return (
         <MotionArticle
             whileHover={{
@@ -28,11 +30,11 @@ export default function PostItem({ title, description, img, updatedAt, publicId,
                 <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>
                 <p className="text-xl line-clamp-6 dark:text-slate-500 text-slate-700">{description}</p>
             </div>
-            <Link href={{ pathname: "/post", query: { id: `${publicId}` }}} className="flex items-center justify-between w-full px-5 py-3 text-xl text-right text-white rounded-b-lg dark:hover:text-cyan-400 group hover:text-sky-800">
+            <Link href={{ pathname: `/posts/${publicId.slice(0,10)+ id +publicId.slice(10,22)}` }} className="flex items-center justify-between w-full px-5 py-3 text-xl text-right text-white rounded-b-lg dark:hover:text-cyan-400 group hover:text-sky-800">
                 المزيد
                 <MdArrowRightAlt size={30} className="transition-transform duration-500 rotate-180 group-hover:-translate-x-4" />
             </Link>
-            {!!updatedAt &&(<span>{newDate}</span>)}
+            {!!updatedAt && (<span className='px-5 pb-1 text-sm text-slate-500'>اخر تحديث: {newDate} </span>)}
         </MotionArticle>
     )
 }
