@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
   const postId = id.slice(10, 11)
   const post = await getPostById(BigInt(postId))
   const metadata: Metadata = {
-    title: post?.title,
+    title: `${post?.title} | شركة فجر بغداد`,
     description: post?.content,
     keywords: post?.topic?.split(" ") ? post?.topic.split(" ") : post?.content.split(" "),
   }
