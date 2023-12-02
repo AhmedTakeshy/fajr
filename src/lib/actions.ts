@@ -108,6 +108,7 @@ export async function createPost( values : PostFormSchema,email: string) {
         await prisma.post.create({
             data: {
                 title: data.title,
+                topic: data.topic,
                 content: data.content,
                 published: data.published,
                 author: {
@@ -126,12 +127,19 @@ export async function createPost( values : PostFormSchema,email: string) {
     
 }
 
-export async function updatePost(id: number, values: PostFormSchema) {
+export async function updatePost(id: number, values: PostFormSchema,email: string) {
+    console.log("🚀 ~ file: actions.ts:130 ~ updatePost ~ (id: number, values::", id, values);
+    
     try {
         const result = await postFormSchema.safeParseAsync(values)
         if (!result.success) {
             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
         }
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            }
+        })
         const data = result.data
         await prisma.post.update({
             where: {
@@ -139,12 +147,18 @@ export async function updatePost(id: number, values: PostFormSchema) {
             },
             data: {
                 title: data.title,
+                topic: data.topic,
                 content: data.content,
                 published: data.published,
+                author: {
+                    connect: {
+                        id: user?.id
+                    }
+                }
             }
         })
         revalidatePath("/admin/posts")
-        return { error: false, message: "تم تحديث المقال بنجاح", status: 201 }
+        return { error: false, message: "تم تحديث المقال بنجاح", status: 200 }
     } catch (error) {
         console.log(error);
         return { error: true, message: "هناك شيئا خاطئ لم يتم تحديث المقال", status: 401 }
