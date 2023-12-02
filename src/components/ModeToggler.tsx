@@ -24,7 +24,7 @@ export function ModeToggler({ className }: Props) {
     const pathname = usePathname()
 
     const handleScroll = () => {
-            if (window.scrollY >= 900) {
+            if (window.scrollY >= 600) {
             setBlack(false)
             } else {
                 setBlack(true)

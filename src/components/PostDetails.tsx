@@ -1,34 +1,35 @@
 import { formattedDate } from "@/lib/helpers";
 import Image from "next/image"
 import React from "react";
+import TakeAction from "./dashboard/TakeAction";
+
 
 type Props = {
-    publicId: string
+    id: number
     img?: string
     title: string
     topic?: string
     description: string
-    author?: {
-        name: string
-    }
+    authorName?: string
     updatedAt?: string
 }
 
-export default function PostDetails({ img, title, description, author, updatedAt, publicId, topic }: Props) {
-    const newDate  = formattedDate(updatedAt!)
+export default function PostDetails({ img, title, description, authorName, updatedAt, id, topic }: Props) {
+    const newDate = formattedDate(updatedAt!)
+
     return (
-        <React.Fragment key={publicId}>
+        <React.Fragment key={id}>
             <div className="p-4 dark:bg-slate-700 bg-slate-300 md:p-8 rounded-xl">
-                <Image
-                width={551}
-                height={320}
-                alt={`post image`}
+                {!!img && (<Image
+                    width={551}
+                    height={320}
+                    alt={`post image`}
                     className="object-cover object-center mx-auto rounded-lg h-80"
-                    src="https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-                />
+                    src={img}
+                />)}
                 <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>
                 <h1
-                    className="mt-1 text-xl font-semibold leading-none text-gray-900 capitalize truncate dark:text-gray-400"
+                    className="mt-1 text-xl font-semibold text-gray-900 capitalize truncate dark:text-gray-400"
                 >
                     {title}
                 </h1>
@@ -37,11 +38,12 @@ export default function PostDetails({ img, title, description, author, updatedAt
                         {description}
                     </p>
                 </div>
-                <div className="flex items-center mt-20 space-x-2">
-                    <div>
-                        {!!author&&<p className="font-semibold text-gray-900 dark:text-gray-400">{author?.name}</p>}
-                        {!!updatedAt&&<p className="text-sm font-semibold text-gray-500">
-                            {newDate} &middot; 6 min read
+                <div className="flex flex-col items-start justify-start gap-2 mt-20">
+                    <TakeAction id={id} />
+                    <div className="flex flex-col justify-start">
+                        {!!authorName && <p className="text-sm font-semibold text-gray-900 dark:text-gray-400">{authorName}</p>}
+                        {!!updatedAt && <p className="text-xs font-semibold text-gray-500">
+                            اخر تحديث: {newDate}
                         </p>}
                     </div>
                 </div>
