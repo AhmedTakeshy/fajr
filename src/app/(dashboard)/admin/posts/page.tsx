@@ -1,7 +1,6 @@
 import PostItem from '@/components/main/PostItem'
 import { Button } from '@/components/ui/button'
 import { getPosts } from '@/lib/actions'
-import { PostFormSchema } from '@/lib/formSchemas'
 import Link from 'next/link'
 import { FiEdit } from 'react-icons/fi'
 
@@ -16,7 +15,7 @@ export default async function Posts() {
             </Button>
         <div className="grid gap-10 mt-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-center">
             {posts.map((post) => (
-                <PostItem key={post.id} publicId={post.publicId} id={post.id} title={post.title} description={post.content!} />
+                <PostItem updatedAt={post.updatedAt} key={post.id} publicId={post.publicId} id={post.id} title={post.title} description={post.content!} />
             ))}
         </div>
         </div>
