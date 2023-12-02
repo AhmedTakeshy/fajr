@@ -113,6 +113,9 @@ export default function TakeAction({ id, publicId }: Props) {
                 <Link href={`/admin/posts/${publicId}/edit`} className='bg-green-500 hover:bg-green-700'>تعديل</Link>
             </Button>
             <SubmitButton pending={isPending.unPublish} fn={unPublishPostAction} text="الغاء النشر" className="w-auto bg-blue-500 hover:bg-blue-700" />
+            <Button asChild>
+                <Link href="." className='bg-yellow-500 hover:bg-yellow-700'>الغاء</Link>
+            </Button>
         </div>)
     )
 }

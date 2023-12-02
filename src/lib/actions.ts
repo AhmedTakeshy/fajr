@@ -127,11 +127,10 @@ export async function createPost( values : PostFormSchema,email: string) {
     
 }
 
-export async function updatePost(id: number, values: PostFormSchema,email: string) {
-    console.log("🚀 ~ file: actions.ts:130 ~ updatePost ~ (id: number, values::", id, values);
-    
+export async function updatePost(id: number, values: PostFormSchema,email: string) {    
     try {
         const result = await postFormSchema.safeParseAsync(values)
+        console.log("🚀 ~ file: actions.ts:135 ~ updatePost ~ result:", result)
         if (!result.success) {
             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
         }
@@ -141,7 +140,7 @@ export async function updatePost(id: number, values: PostFormSchema,email: strin
             }
         })
         const data = result.data
-        await prisma.post.update({
+        const post = await prisma.post.update({
             where: {
                 id
             },
@@ -157,6 +156,7 @@ export async function updatePost(id: number, values: PostFormSchema,email: strin
                 }
             }
         })
+        console.log("🚀 ~ file: actions.ts:160 ~ updatePost ~ post:", post)
         revalidatePath("/admin/posts")
         return { error: false, message: "تم تحديث المقال بنجاح", status: 200 }
     } catch (error) {

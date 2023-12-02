@@ -91,7 +91,7 @@ export default function PostForm({ type, data, id }: Props) {
                 if (res.status === 201) {
                     toast({
                         title: "تم بنجاح!",
-                        description: `تم انشاء المقال بنجاح`,
+                        description: res.message,
                         duration: 3000,
                     })
                     router.push("/admin/posts")
@@ -100,7 +100,7 @@ export default function PostForm({ type, data, id }: Props) {
                 else {
                     toast({
                         title: "للاسف!",
-                        description: "حدث خطأ ما برجاء المحاولة مرة اخري",
+                        description: res.message,
                         duration: 3000,
                         variant: "destructive",
                     })
@@ -116,20 +116,29 @@ export default function PostForm({ type, data, id }: Props) {
         }
         if (type === "edit") {
             try {
+                const result = await postFormSchema.safeParseAsync(data!)
+                if (!result.success) {
+                    toast({
+                        title: "للاسف!",
+                        description: "من فضلك ادخل البيانات بشكل صحيح",
+                        duration: 3000,
+                        variant: "destructive",
+                    })
+                    return
+                }
                 const res = await updatePost(id!, data!, session?.user?.email!)
                 if (res.status === 200) {
                     toast({
                         title: "تم بنجاح!",
-                        description: `تم انشاء المقال بنجاح`,
+                        description: res.message,
                         duration: 3000,
                     })
                     router.push("/admin/posts")
                 }
                 else {
-                    console.log(res.error)
                     toast({
                         title: "للاسف!",
-                        description: "حدث خطأ ما برجاء المحاولة مرة اخري",
+                        description: res.message,
                         duration: 3000,
                         variant: "destructive",
                     })
