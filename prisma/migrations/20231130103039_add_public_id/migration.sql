@@ -3,7 +3,7 @@ CREATE TYPE "Role" AS ENUM ('SuperAdmin', 'Admin');
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "publicId" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Post" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "publicId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "topic" TEXT,
@@ -33,7 +33,7 @@ CREATE TABLE "Post" (
 
 -- CreateTable
 CREATE TABLE "email_subscription" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
