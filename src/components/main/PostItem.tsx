@@ -1,12 +1,10 @@
 import { MotionArticle } from '@/lib/motionDev'
-
 import Image from 'next/image'
 import { formattedDate } from '@/lib/helpers';
-import { headers } from 'next/headers';
 import RoutingLink from '../RoutingLink';
 
 type JobProps = {
-    id:bigint;
+    id:number;
     title: string;
     topic?: string;
     description: string;
@@ -16,11 +14,7 @@ type JobProps = {
 };
 
 export default function PostItem({ title, description, img, updatedAt, publicId,topic,id }: JobProps) {
-    const newDate = formattedDate(updatedAt?.toISOString()!)
-    const headersList = headers();
-    const url = headersList.get('next-url')
-    // const url = headersList.get('referer')?.split("/")[3] || "";
-    
+    const newDate = formattedDate(updatedAt?.toISOString()!)    
     
     return (
         <MotionArticle

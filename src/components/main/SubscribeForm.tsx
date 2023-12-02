@@ -6,25 +6,56 @@ import { subscribe } from "@/lib/actions";
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
+import { SubscribeFormSchema, subscribeFormSchema } from "@/lib/formSchemas";
+import { useToast } from "../ui/use-toast";
+import SubmitButton from "../SubmitButton";
 
 const formSchema = z.object({
     email: z.string().email({
-        message: "من فضلك ادخل حساب الكرتوني صحيح",
+        message: "من فضلك ادخل بريد الكرتوني صحيح",
     }),
 })
 
 export default function SubscribeForm() {
+    const {toast} = useToast()
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<SubscribeFormSchema>({
+        resolver: zodResolver(subscribeFormSchema),
         defaultValues: {
             email: "",
         },
     })
+
+    async function handleSubmit(data: SubscribeFormSchema) {
+        const result = await subscribeFormSchema.safeParseAsync(data)
+        if (!result.success) {
+            toast({
+                title: "حدث خطأ",
+                description: "من فضلك ادخل بريد الكرتوني صحيح",
+                duration: 3000,
+            })
+            return
+        }
+        const res = await subscribe(result.data)
+        if (!res?.error && res?.status === 201) {
+            toast({
+                title: "تم الاشتراك",
+                description: "تم اشتراكك بنجاح",
+                duration: 3000,
+            })
+            form.reset()
+        } else {
+            toast({
+                title: "حدث خطأ",
+                description: "من فضلك ادخل بريد الكرتوني صحيح",
+                duration: 3000,
+            })
+        }
+    }
    
 return (
     <Form {...form}>
-        <form action={subscribe} method="get" className="flex flex-col items-center justify-center gap-2">
+        <form onSubmit={form.handleSubmit(handleSubmit)} method="get" className="flex flex-col items-center justify-center gap-2">
             <FormField
                 control={form.control}
                 name="email"
@@ -37,7 +68,7 @@ return (
                     </FormItem>
                 )}
             />
-            <Button size="lg" className="" >اشترك</Button>
+            <SubmitButton className="w-auto"  sz="lg" text="اشتراك"/>
         </form>
     </Form>
 )
