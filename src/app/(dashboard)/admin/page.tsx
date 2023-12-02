@@ -1,6 +1,6 @@
 import { getPosts } from '@/lib/actions'
 import PostForm from '@/components/dashboard/PostForm'
-import PostItem from '@/components/main/PostItem'
+import PostItem from '@/components/PostItem'
 
 
 export default async function Admin() {

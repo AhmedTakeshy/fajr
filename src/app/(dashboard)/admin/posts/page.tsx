@@ -1,4 +1,4 @@
-import PostItem from '@/components/main/PostItem'
+import PostItem from '@/components/PostItem'
 import { Button } from '@/components/ui/button'
 import { getPosts } from '@/lib/actions'
 import Link from 'next/link'
