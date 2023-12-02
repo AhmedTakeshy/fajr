@@ -1,5 +1,12 @@
 import * as z from "zod";
 
+
+export const subscribeFormSchema = z.object({
+    email: z.string().email({
+        message: "من فضلك ادخل بريد الكرتوني صحيح",
+    }),
+})
+
 export const signInFormSchema = z.object({
     email: z.string().trim().email({
         message: "من فضلك ادخل بريد الكرتوني صحيح",
@@ -39,6 +46,8 @@ export const postFormSchema = z.object({
     published: z.boolean().default(true),
     
 })
+
+export type SubscribeFormSchema = z.infer<typeof subscribeFormSchema>
 
 export type SignInFormSchema = z.infer<typeof signInFormSchema>
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
