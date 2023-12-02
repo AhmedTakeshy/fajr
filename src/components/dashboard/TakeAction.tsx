@@ -24,14 +24,13 @@ export default function TakeAction({ id }: Props) {
         setIsPending(true)
         try {
             const res = await deletePost(id)
-            console.log("🚀 ~ file: PostDetails.tsx:42 ~ deletePostAction ~ res:", res)
             if (!res.error && res.status === 200) {
                 toast({
                     title: "تم",
                     description: "تم مسح المنشور بنجاح",
                     duration: 3000,
                 })
-                router.replace("admin/posts")
+                router.replace("/admin/posts")
                 setOpen(false)
             }
             else {

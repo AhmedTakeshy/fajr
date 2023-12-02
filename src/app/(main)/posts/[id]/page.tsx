@@ -2,6 +2,7 @@ import PostDetails from '@/components/PostDetails'
 import { getPostById, getPosts } from '@/lib/actions'
 import { Metadata } from 'next'
 
+
 type Props = {
   params: { id: string }
 
@@ -20,7 +21,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { id } = params
   const postId = id.slice(10, 11)
-  const post = await getPostById(BigInt(postId))
+  const post = await getPostById(Number(postId))
   const metadata: Metadata = {
     title: `${post?.title} | شركة فجر بغداد`,
     description: post?.content,
@@ -33,10 +34,10 @@ export async function generateMetadata({ params }: Props) {
 export default async function postId({ params }: Props) {
   const { id } = params;
   const postId = id.slice(10, 11)
-  const post = await getPostById(BigInt(+postId!))
+  const post = await getPostById(Number(postId))
   return (
     <div className='container flex flex-col items-center justify-center mx-auto my-12'>
-      <PostDetails publicId={post?.publicId!} title={post?.title!} description={post?.content!} />
+      <PostDetails updatedAt={post?.updatedAt.toISOString()} id={post?.id!} title={post?.title!} description={post?.content!} />
     </div>
   )
 }
