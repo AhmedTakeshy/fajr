@@ -77,7 +77,7 @@ export default function NavMenu() {
             <NavigationMenu>
                 <NavigationMenuList className="items-center justify-center hidden gap-2 md:flex">
                     <NavigationMenuItem>
-                        <Link href="/" legacyBehavior passHref>
+                        <Link href="/admin" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>الرئيسية</NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>

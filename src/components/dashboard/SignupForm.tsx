@@ -79,7 +79,6 @@ export function SignUpForm() {
                 form.reset()
                 router.replace("/admin/accounts")
             } else {
-    
                 toast({
                     title: "للاسف",
                     description: res?.message,
@@ -100,7 +99,7 @@ export function SignUpForm() {
     }
     return (
         <Form {...form} >
-            <div className="w-full max-sm:max-w-xs p-4 mb-4  border-2 rounded-md border-slate-800 dark:border-slate-400">
+            <div className="w-full p-4 mb-4 border-2 rounded-md max-sm:max-w-xs border-slate-800 dark:border-slate-400">
                 <form 
                     onSubmit={form.handleSubmit(signUpAction)} 
                     className="space-y-2">

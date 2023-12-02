@@ -66,7 +66,6 @@ export function SignInForm() {
                 })
                 router.replace("/admin")
             } else {
-                console.log("🚀 ~ file: SignInForm.tsx:61 ~ signInCredentials ~ signInData:", signInData)
                 toast({
                     title: "للاسف",
                     description: "هناك شيئا خاطئ مع البريد الالكتروني او كلمة المرور",
