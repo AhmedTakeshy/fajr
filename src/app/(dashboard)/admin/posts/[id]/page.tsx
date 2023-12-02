@@ -13,7 +13,7 @@ export default async function postId({ params }: Props) {
     const user = await getUserById(post?.authorId!)
     return (
         <div className='container flex flex-col items-center justify-center mx-auto my-12'>
-            <PostDetails authorName={user?.name} key={post?.id} updatedAt={post?.updatedAt.toISOString()} id={post?.id!} title={post?.title!} description={post?.content!} />
+            <PostDetails publicId={id} authorName={user?.name} key={post?.id} updatedAt={post?.updatedAt.toISOString()} id={post?.id!} title={post?.title!} description={post?.content!} />
         </div>
     )
 }
