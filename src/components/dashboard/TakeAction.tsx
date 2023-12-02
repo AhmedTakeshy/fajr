@@ -2,17 +2,19 @@
 import { FaRegTrashCan } from 'react-icons/fa6'
 import SubmitButton from '../SubmitButton'
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from '../ui/alert-dialog'
-import { buttonVariants } from '../ui/button'
-import { redirect, usePathname, useRouter } from 'next/navigation'
+import { Button, buttonVariants } from '../ui/button'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { deletePost, unPublishPost } from '@/lib/actions'
 import { toast } from '../ui/use-toast'
+import Link from 'next/link'
 
 type Props = {
     id: number
+    publicId?: string
 }
 
-export default function TakeAction({ id }: Props) {
+export default function TakeAction({ id, publicId }: Props) {
     const [open, setOpen] = useState<boolean>(false)
     const [isPending, setIsPending] = useState<{
         delete: boolean,
@@ -90,7 +92,7 @@ export default function TakeAction({ id }: Props) {
 
 
     return (
-        !!pathname.includes("admin")&&(<div className="flex items-center gap-4">
+        !!pathname.includes("admin") && (<div className="flex items-center gap-4">
             <AlertDialog open={open} onOpenChange={setOpen}>
                 <AlertDialogTrigger className={`${buttonVariants({ variant: "destructive" })}`}>مسح <FaRegTrashCan size={15} className="mr-1" /></AlertDialogTrigger>
                 <AlertDialogContent>
@@ -107,7 +109,9 @@ export default function TakeAction({ id }: Props) {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            <SubmitButton  text="تعديل" className="w-auto bg-green-500 hover:bg-green-700" />
+            <Button asChild>
+                <Link href={`/admin/posts/${id}/edit`} className='bg-green-500 hover:bg-green-700'>تعديل</Link>
+            </Button>
             <SubmitButton pending={isPending.unPublish} fn={unPublishPostAction} text="الغاء النشر" className="w-auto bg-blue-500 hover:bg-blue-700" />
         </div>)
     )

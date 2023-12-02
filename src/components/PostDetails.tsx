@@ -6,6 +6,7 @@ import TakeAction from "./dashboard/TakeAction";
 
 type Props = {
     id: number
+    publicId?: string
     img?: string
     title: string
     topic?: string
@@ -14,7 +15,7 @@ type Props = {
     updatedAt?: string
 }
 
-export default function PostDetails({ img, title, description, authorName, updatedAt, id, topic }: Props) {
+export default function PostDetails({ img, title, description, authorName, updatedAt, id, topic,publicId }: Props) {
     const newDate = formattedDate(updatedAt!)
 
     return (
@@ -39,7 +40,7 @@ export default function PostDetails({ img, title, description, authorName, updat
                     </p>
                 </div>
                 <div className="flex flex-col items-start justify-start gap-2 mt-20">
-                    <TakeAction id={id} />
+                    <TakeAction id={id} publicId={publicId}/>
                     <div className="flex flex-col justify-start">
                         {!!authorName && <p className="text-sm font-semibold text-gray-900 dark:text-gray-400">{authorName}</p>}
                         {!!updatedAt && <p className="text-xs font-semibold text-gray-500">

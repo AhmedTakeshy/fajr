@@ -1,7 +1,7 @@
 import { MotionArticle } from '@/lib/motionDev'
 import Image from 'next/image'
 import { formattedDate } from '@/lib/helpers';
-import RoutingLink from '../RoutingLink';
+import RoutingLink from './RoutingLink';
 
 type JobProps = {
     id:number;

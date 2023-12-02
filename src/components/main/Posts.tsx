@@ -3,7 +3,7 @@ import { fadeIn } from "@/lib/variants";
 import Image from "next/image";
 import Link from "next/link";
 import { MdArrowRightAlt } from "react-icons/md";
-import PostItem from "./PostItem";
+import PostItem from "../PostItem";
 import { getPosts } from "@/lib/actions";
 
 export default async function Posts() {
