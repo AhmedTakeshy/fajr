@@ -166,11 +166,32 @@ export async function deletePost(id: number) {
     }
 }
 
+export async function unPublishPost(id: number) {
+    try {
+        await prisma.post.update({
+            where: {
+                id
+            },
+            data: {
+                published: false
+            }
+        })
+        revalidatePath("/admin/posts")
+        return { error: false, message: "تم إلغاء نشر المقال بنجاح", status: 200 }
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "هناك شيئا خاطئ لم يتم إلغاء نشر المقال", status: 401 }
+    }
+}
+
 export async function getPosts() {
     const posts = await prisma.post.findMany({
+        where: {
+            published: true
+        },
         orderBy: {
             createdAt: "desc"
-        }
+        },
     })
     return posts
 }

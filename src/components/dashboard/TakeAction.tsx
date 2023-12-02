@@ -5,7 +5,7 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, 
 import { buttonVariants } from '../ui/button'
 import { redirect, usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { deletePost } from '@/lib/actions'
+import { deletePost, unPublishPost } from '@/lib/actions'
 import { toast } from '../ui/use-toast'
 
 type Props = {
@@ -14,14 +14,22 @@ type Props = {
 
 export default function TakeAction({ id }: Props) {
     const [open, setOpen] = useState<boolean>(false)
-    const [isPending, setIsPending] = useState<boolean>(false)
+    const [isPending, setIsPending] = useState<{
+        delete: boolean,
+        unPublish: boolean,
+        edit: boolean
+    }>({
+        delete: false,
+        unPublish: false,
+        edit: false
+    })
     const pathname = usePathname()
     const router = useRouter()
 
 
 
     async function deletePostAction() {
-        setIsPending(true)
+        setIsPending(prev => ({ ...prev, delete: true }))
         try {
             const res = await deletePost(id)
             if (!res.error && res.status === 200) {
@@ -47,7 +55,37 @@ export default function TakeAction({ id }: Props) {
                 duration: 3000,
             })
         }
-        setIsPending(false)
+        setIsPending(prev => ({ ...prev, delete: false }))
+    }
+
+    async function unPublishPostAction() {
+        setIsPending(prev => ({ ...prev, unPublish: true }))
+        try {
+            const res = await unPublishPost(id)
+            if (!res.error && res.status === 200) {
+                toast({
+                    title: "تم",
+                    description: "تم إلغاء نشر المقال بنجاح",
+                    duration: 3000,
+                })
+                router.replace("/admin/posts")
+                setOpen(false)
+            }
+            else {
+                toast({
+                    title: "للاسف",
+                    description: "حدث خطأ اثناء إلغاء نشر المقال بنجاح",
+                    duration: 3000,
+                })
+            }
+        } catch (err) {
+            toast({
+                title: "للاسف",
+                description: "حدث خطأ اثناء إلغاء نشر المقال بنجاح",
+                duration: 3000,
+            })
+        }
+        setIsPending(prev => ({ ...prev, unPublish: false }))
     }
 
 
@@ -65,14 +103,12 @@ export default function TakeAction({ id }: Props) {
                     </AlertDialogHeader>
                     <AlertDialogFooter className="!justify-start">
                         <AlertDialogCancel >إلغاء</AlertDialogCancel>
-                        <SubmitButton pending={isPending} fn={deletePostAction} text="تاكيد" va="destructive" className="w-auto !mr-2" />
-                        {/* <AlertDialogAction className={`${buttonVariants({ variant: "destructive" })} !mr-2`}>تاكيد</AlertDialogAction> */}
-                        {/* <Button formAction={deletePostAction} variant="destructive" className={`!mr-2`} >تاكيد</Button> */}
+                        <SubmitButton pending={isPending.delete} fn={deletePostAction} text="تاكيد" va="destructive" className="w-auto !mr-2" />
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            <SubmitButton text="تعديل" className="w-auto bg-green-500 hover:bg-green-700" />
-            <SubmitButton text="الغاء النشر" className="w-auto bg-blue-500 hover:bg-blue-700" />
+            <SubmitButton  text="تعديل" className="w-auto bg-green-500 hover:bg-green-700" />
+            <SubmitButton pending={isPending.unPublish} fn={unPublishPostAction} text="الغاء النشر" className="w-auto bg-blue-500 hover:bg-blue-700" />
         </div>)
     )
 }
