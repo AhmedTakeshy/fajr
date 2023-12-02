@@ -1,4 +1,4 @@
-import PostItem from "@/components/main/PostItem";
+import PostItem from "@/components/PostItem";
 import { getPosts } from "@/lib/actions";
 
 
