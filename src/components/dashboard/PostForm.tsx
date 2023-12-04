@@ -74,85 +74,57 @@ export default function PostForm({ type, data, id }: Props) {
 
 
     const SubmitAction = async (values: PostFormSchema) => {
-        setIsPending(true)
-        if (type === "new") {
-            try {
-                const result = await postFormSchema.safeParseAsync(values)
-                if (!result.success) {
-                    toast({
-                        title: "للاسف!",
-                        description: "من فضلك ادخل البيانات بشكل صحيح",
-                        duration: 3000,
-                        variant: "destructive",
-                    })
-                    return
-                }
-                const res = await createPost(values, session?.user?.email!)
-                if (res.status === 201) {
-                    toast({
-                        title: "تم بنجاح!",
-                        description: res.message,
-                        duration: 3000,
-                    })
-                    router.push("/admin/posts")
-                    form.reset()
-                }
-                else {
-                    toast({
-                        title: "للاسف!",
-                        description: res.message,
-                        duration: 3000,
-                        variant: "destructive",
-                    })
-                }
-            } catch (error) {
+        setIsPending(true);
+        try {
+            const result = await postFormSchema.safeParseAsync(values);
+
+            if (!result.success) {
                 toast({
                     title: "للاسف!",
-                    description: "حدث خطأ ما برجاء المحاولة مرة اخري",
+                    description: "من فضلك ادخل البيانات بشكل صحيح",
                     duration: 3000,
                     variant: "destructive",
-                })
+                });
+                return;
             }
-        }
-        if (type === "edit") {
-            try {
-                const result = await postFormSchema.safeParseAsync(data!)
-                if (!result.success) {
-                    toast({
-                        title: "للاسف!",
-                        description: "من فضلك ادخل البيانات بشكل صحيح",
-                        duration: 3000,
-                        variant: "destructive",
-                    })
-                    return
+
+            let res;
+
+            if (type === "new") {
+                res = await createPost(values, session?.user?.email!);
+            } else if (type === "edit") {
+                res = await updatePost(id!, result.data, session?.user?.email!);
+            }
+
+            if (res?.status === 201 || res?.status === 200) {
+                toast({
+                    title: "تم بنجاح!",
+                    description: res?.message,
+                    duration: 3000,
+                });
+                router.push("/admin/posts");
+                if (type === "new") {
+                    form.reset();
                 }
-                const res = await updatePost(id!, data!, session?.user?.email!)
-                if (res.status === 200) {
-                    toast({
-                        title: "تم بنجاح!",
-                        description: res.message,
-                        duration: 3000,
-                    })
-                    router.push("/admin/posts")
-                }
-                else {
-                    toast({
-                        title: "للاسف!",
-                        description: res.message,
-                        duration: 3000,
-                        variant: "destructive",
-                    })
-                }
-            } catch (error) {
+            } else {
                 toast({
                     title: "للاسف!",
-                    description: "حدث خطأ ما برجاء المحاولة مرة اخري",
+                    description: res?.message,
                     duration: 3000,
                     variant: "destructive",
-                })
+                });
             }
+        } catch (error) {
+            toast({
+                title: "للاسف!",
+                description: "حدث خطأ ما برجاء المحاولة مرة اخري",
+                duration: 3000,
+                variant: "destructive",
+            });
+        } finally {
+            setIsPending(false);
         }
-        setIsPending(false)
+
     }
     return (
         type === "edit" ? (

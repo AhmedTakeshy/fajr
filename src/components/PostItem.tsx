@@ -11,11 +11,12 @@ type JobProps = {
     img?:string;
     updatedAt?: Date;
     publicId:string;
+    published?:boolean;
 };
 
-export default function PostItem({ title, description, img, updatedAt, publicId,topic,id }: JobProps) {
+export default function PostItem({ title, description, img, updatedAt, publicId,topic,id,published }: JobProps) {
     const newDate = formattedDate(updatedAt?.toISOString()!)    
-    
+    // if(!published) return (<></>)
     return (
         <MotionArticle
             whileHover={{
