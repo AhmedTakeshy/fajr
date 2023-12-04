@@ -10,3 +10,14 @@ type Post = {
     createdAt: Date;
     updatedAt: Date;
 }
+
+type User = {
+    id: number;
+    name: string;
+    role: $Enums.Role;
+    email: string;
+    updatedAt: Date;
+    publicId: string;
+    createdAt: Date;
+
+}

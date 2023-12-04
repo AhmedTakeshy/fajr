@@ -68,7 +68,17 @@ export async function signUp(values: SignUpFormSchema) {
 }
 
 export async function getUsers() {
-    const users = await prisma.user.findMany({})
+    const users = await prisma.user.findMany({
+        select: {
+            id: true,
+            publicId: true,
+            name: true,
+            email: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true,
+        }
+    })
     return users
 }
 
@@ -130,7 +140,6 @@ export async function createPost( values : PostFormSchema,email: string) {
 export async function updatePost(id: number, values: PostFormSchema,email: string) {    
     try {
         const result = await postFormSchema.safeParseAsync(values)
-        console.log("🚀 ~ file: actions.ts:135 ~ updatePost ~ result:", result)
         if (!result.success) {
             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
         }
@@ -140,7 +149,7 @@ export async function updatePost(id: number, values: PostFormSchema,email: strin
             }
         })
         const data = result.data
-        const post = await prisma.post.update({
+        await prisma.post.update({
             where: {
                 id
             },
@@ -156,7 +165,6 @@ export async function updatePost(id: number, values: PostFormSchema,email: strin
                 }
             }
         })
-        console.log("🚀 ~ file: actions.ts:160 ~ updatePost ~ post:", post)
         revalidatePath("/admin/posts")
         return { error: false, message: "تم تحديث المقال بنجاح", status: 200 }
     } catch (error) {
@@ -200,9 +208,6 @@ export async function unPublishPost(id: number) {
 
 export async function getPosts() {
     const posts = await prisma.post.findMany({
-        where: {
-            published: true
-        },
         orderBy: {
             createdAt: "desc"
         },
