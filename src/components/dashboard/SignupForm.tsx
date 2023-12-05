@@ -26,8 +26,9 @@ import {
 } from "@/components/ui/select"
 
 
-import { signUp } from "@/lib/actions"
+
 import SubmitButton from "../SubmitButton"
+import { signUp } from "@/_actions/userActions"
 
 
 

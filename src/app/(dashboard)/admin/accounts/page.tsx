@@ -1,12 +1,17 @@
+import { getPosts } from "@/_actions/postActions"
+import { getUsers } from "@/_actions/userActions"
+import { SignUpForm } from "@/components/dashboard/SignupForm"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getPostById, getPosts, getUsers } from "@/lib/actions"
+
+
 
 
 export default async function UsersTable() {
   const users:User[] =  await getUsers()
   const posts:Post[] = await getPosts()
   return (
-    <div dir="rtl" className=" container">
+    <div className="container grid gap-8 my-20 text-3xl font-extrabold place-items-start ">
+      <SignUpForm />
       <Table dir="rtl">
         <TableHeader>
           <TableRow>

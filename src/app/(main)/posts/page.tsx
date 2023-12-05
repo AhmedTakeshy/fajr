@@ -1,5 +1,6 @@
+import { getPosts } from "@/_actions/postActions";
 import PostItem from "@/components/PostItem";
-import { getPosts } from "@/lib/actions";
+
 
 
 export default async function page() {
@@ -14,7 +15,6 @@ export default async function page() {
             title={post.title}
             description={post.content} 
             updatedAt={post.updatedAt} 
-            published={post.published}
             />)}
         </div>
     )
