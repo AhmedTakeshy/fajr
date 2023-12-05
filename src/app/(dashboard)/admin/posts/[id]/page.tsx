@@ -1,5 +1,6 @@
 import PostDetails from '@/components/PostDetails';
-import { getPostById, getUserById } from '@/lib/actions';
+import { getPostById } from '@/_actions/postActions';
+import { getUserById } from '@/_actions/userActions';
 
 
 type Props = {

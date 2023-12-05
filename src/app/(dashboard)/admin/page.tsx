@@ -1,10 +1,10 @@
-import { getPosts } from '@/lib/actions'
+import { getPosts } from '@/_actions/postActions'
 import PostForm from '@/components/dashboard/PostForm'
 import PostItem from '@/components/PostItem'
 
 
 export default async function Admin() {
-  const posts = await getPosts()
+  const posts:Post[] = await getPosts()
   return (
     <>
     <div className="!container flex flex-col items-center my-20 text-3xl font-extrabold ">

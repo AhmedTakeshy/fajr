@@ -5,7 +5,7 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, 
 import { Button, buttonVariants } from '../ui/button'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { deletePost, unPublishPost } from '@/lib/actions'
+import { deletePost, unPublishPost } from '@/_actions/postActions'
 import { toast } from '../ui/use-toast'
 import Link from 'next/link'
 
@@ -109,8 +109,8 @@ export default function TakeAction({ id, publicId }: Props) {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            <Button asChild>
-                <Link href={`/admin/posts/${publicId}/edit`} className='bg-green-500 hover:bg-green-700'>تعديل</Link>
+            <Button asChild className='bg-green-500 hover:bg-green-700'>
+                <Link href={`/admin/posts/${publicId}/edit`} >تعديل</Link>
             </Button>
             <SubmitButton pending={isPending.unPublish} fn={unPublishPostAction} text="الغاء النشر" className="w-auto bg-blue-500 hover:bg-blue-700" />
             <Button asChild>

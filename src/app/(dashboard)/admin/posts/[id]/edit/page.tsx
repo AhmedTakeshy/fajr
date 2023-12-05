@@ -1,5 +1,5 @@
 import PostForm from '@/components/dashboard/PostForm'
-import { getPostById } from '@/lib/actions'
+import { getPostById } from '@/_actions/postActions'
 import React from 'react'
 
 type Props = {

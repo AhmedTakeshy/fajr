@@ -1,7 +1,7 @@
 import { MotionSection } from "@/lib/motionDev";
 import { fadeIn } from "@/lib/variants";
 import PostItem from "../PostItem";
-import { getPosts } from "@/lib/actions";
+import { getPosts } from '@/_actions/postActions'
 
 export default async function Posts() {
   const posts:Post[] = await getPosts();

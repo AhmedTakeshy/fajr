@@ -1,9 +1,7 @@
 import PostItem from '@/components/PostItem'
 import PostForm from '@/components/dashboard/PostForm'
-import { Button } from '@/components/ui/button'
 import { getPosts } from '@/_actions/postActions'
-import Link from 'next/link'
-import { FiEdit } from 'react-icons/fi'
+
 
 
 export default async function Posts() {

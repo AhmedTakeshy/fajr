@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth"
+import {  NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/lib/prisma"
@@ -12,14 +12,14 @@ export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
         maxAge: 24 * 60 * 60,
-        updateAge: 24 * 60 * 60,
+        updateAge: 60 * 60,
     },
     providers: [
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
                 email: { label: "Email", type: "email", placeholder: "example@email.com" },
-                password: { label: "Password", type: "password" }
+                password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) return null;
@@ -29,32 +29,36 @@ export const authOptions: NextAuthOptions = {
                         email: credentials.email
                     }
                 })
-                console.log("🚀 ~ file: auth.ts:32 ~ authorize ~ existingUser:", existingUser)
                 if (!existingUser) return null;
 
                 const isPasswordValid = await bcrypt.compare(credentials.password, existingUser.password!)
-
                 if (!isPasswordValid) return null;
-
                 return {
-                    id: existingUser.id.toString(),
-                    email: existingUser.email,
-                    name: existingUser.name,
+                        id: existingUser.id.toString(),
+                        name: existingUser.name,
+                        email: existingUser.email,
+                        role: existingUser.role,
                 }
             }
-        })
+        }),
     ],
 
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
+        async jwt({ token, user, account, profile }) {
+            if(user) token.role = user.role
+            return token
+        },
         async signIn({ user, account, profile, email, credentials }) {
+            console.log("🚀 ~ file: auth.ts:53 ~ signIn ~ { user, account, profile, email, credentials }:", { user, account, profile, email, credentials })
             return true
         },
         async session({ session, token, user }) {
+            session.user = { ...session.user, role: token.role } 
+            console.log("🚀 ~ file: auth.ts:52 ~ session ~ { session, token, user }:", { session, token, user })
             return session
         },
-        async jwt({ token, user, account, profile }) {
-            return token
-        }
+        
     }
 
 }
