@@ -1,5 +1,4 @@
 "use client"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import {
@@ -15,7 +14,6 @@ import { usePathname, useRouter } from "next/navigation"
 import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
 import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
-
 import { SignUpFormSchema, signUpFormSchema } from "@/lib/formSchemas"
 import {
     Select,
@@ -24,9 +22,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-
-
-
 import SubmitButton from "../SubmitButton"
 import { signUp } from "@/_actions/userActions"
 import { Dialog, DialogTrigger, DialogContent } from "@radix-ui/react-dialog"
@@ -107,7 +102,7 @@ export function SignUpForm() {
         <Dialog open={open} onOpenChange={() => { setOpen(prev => !prev); }}>
             <DialogTrigger asChild className="self-start">
                         <Button size="lg" className=' h-12 p-1 animate-animateBorder rounded-lg bg-gradient-to-tr from-[#00FFA3] to-[#DC1FFF] bg-[length:_400%_400%]'>
-                            <span className={`bg-slate-900 w-full h-full rounded text-gray-200 inline-flex items-center justify-center p-1`}>انشء حساب جديد<LuUserPlus size={20} className="mr-2" /></span>
+                    <span className={`dark:bg-slate-900 bg-gray-300 w-full h-full rounded dark:text-gray-200 text-slate-800 inline-flex items-center justify-center p-1`}>انشء حساب جديد<LuUserPlus size={20} className="mr-2" /></span>
                         </Button>
             </DialogTrigger>
             <DialogContent className="flex items-center justify-center w-full max-w-lg">
@@ -124,7 +119,7 @@ export function SignUpForm() {
                                         <FormItem>
                                             <FormLabel>أسم المستخدم</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="محمد احمد" {...field} />
+                                                <Input type="text" placeholder="محمد احمد" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -137,7 +132,7 @@ export function SignUpForm() {
                                         <FormItem>
                                             <FormLabel>البريد الالكتروني</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="example@email.com" {...field} />
+                                                <Input type="email" placeholder="example@email.com" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
