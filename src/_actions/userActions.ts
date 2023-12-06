@@ -73,3 +73,18 @@ export async function getUserById(id: number) {
     })
     return user
 }
+
+export async function deleteUser(id: number) {
+    try {
+        const user = await prisma.user.delete({
+            where: {
+                id
+            }
+        })
+        revalidatePath("/admin/accounts")
+        return { error: false, message: "تم حذف الحساب بنجاح", status: 200 }
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "هناك شيئا خاطئ لم يتم حذف الحساب", status: 401 }
+    }
+}
