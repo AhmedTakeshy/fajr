@@ -34,37 +34,13 @@ export default async function UsersTable({ params, searchParams }: Props) {
               <TableHead className="text-right">#</TableHead>
               <TableHead className="text-right">الاسم</TableHead>
               <TableHead className="text-right">البريد الالكتروني</TableHead>
-              <TableHead className="text-right">Role</TableHead>
+              <TableHead className="text-right">الصلاحيات</TableHead>
               <TableHead className="text-right">عدد المقالات</TableHead>
-              {sessionUser?.role === "SuperAdmin" && <TableHead className="text-left">اختيارات</TableHead>}
+              {sessionUser?.role === "SuperAdmin" && <TableHead className="text-left">اجراءات</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.map((user) => {
-              const postUser = posts.filter(post => post.authorId === user.id)
-              const authorized = sessionUser?.role === "SuperAdmin" && session?.user?.email !== user.email;
-              return (
-                <TableRow key={user.id}>
-                  <TableCell>{user.id}</TableCell>
-                  <TableCell className="font-medium">{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>{postUser.length}</TableCell>
-                  {authorized && <TableCell className="flex items-center justify-end gap-2">
-                    {
-                      Number(userId) === user.id ?
-                        <EditAccountsForm userId={Number(userId)} />
-                        :
-                        <Button asChild>
-                          <Link href={{ pathname: `/admin/accounts/`, query: { id: user.id } }}>
-                            اجراء تعديلات
-                          </Link>
-                        </Button>
-                    }
-                  </TableCell>}
-                </TableRow>
-              )
-            })}
+            <EditAccountsForm userId={Number(userId)} users={users} posts={posts}/>
           </TableBody>
         </Table>
       </div>
