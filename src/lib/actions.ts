@@ -25,3 +25,8 @@ export const subscribe = async (values:SubscribeFormSchema) => {
         return { error: false, message: "تم التسجيل بنجاح", status: 201 }
     }
 }
+
+export const getAllSubscribers = async () => {
+    const subscribers = await prisma.emailNewsletterSubscription.findMany({})
+    return subscribers
+}

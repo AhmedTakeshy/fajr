@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcrypt";
 
+
 export const authOptions: NextAuthOptions = {
     pages: {
         signIn: '/signin',
@@ -50,12 +51,10 @@ export const authOptions: NextAuthOptions = {
             return token
         },
         async signIn({ user, account, profile, email, credentials }) {
-            console.log("🚀 ~ file: auth.ts:53 ~ signIn ~ { user, account, profile, email, credentials }:", { user, account, profile, email, credentials })
             return true
         },
         async session({ session, token, user }) {
-            session.user = { ...session.user, role: token.role } 
-            console.log("🚀 ~ file: auth.ts:52 ~ session ~ { session, token, user }:", { session, token, user })
+            session.user = { ...session.user, role: token.role } as ExtendedUser
             return session
         },
         
