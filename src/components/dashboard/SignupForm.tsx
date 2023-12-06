@@ -10,7 +10,6 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { usePathname, useRouter } from "next/navigation"
 import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
 import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
@@ -40,8 +39,6 @@ export function SignUpForm() {
             password: false,
             confirmPassword: false
         })
-    const router = useRouter()
-    const pathname = usePathname()
 
 
 
@@ -78,7 +75,7 @@ export function SignUpForm() {
                     duration: 5000,
                 })
                 form.reset()
-                router.replace("/admin/accounts")
+                setOpen(false)
             } else {
                 toast({
                     title: "للاسف",
