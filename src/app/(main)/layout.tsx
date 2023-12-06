@@ -3,7 +3,7 @@ import NavMenu from '@/components/main/NavMenu'
 import Footer from '@/components/main/Footer'
 import ScrollButton from '@/components/ScrollButton'
 
-
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'شـــــــركة فجـــــــر بغــــــداد',

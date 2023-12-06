@@ -2,7 +2,6 @@ import { getPosts } from "@/_actions/postActions";
 import PostItem from "@/components/PostItem";
 
 
-
 export default async function page() {
     const posts: Post[] = await getPosts();
     return (
