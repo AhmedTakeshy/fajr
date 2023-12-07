@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { FaRegTrashCan } from 'react-icons/fa6'
 import { RxCrossCircled } from 'react-icons/rx'
 import { Button, buttonVariants } from "@/components/ui/button"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SubmitButton from '../SubmitButton'
 import {
     AlertDialogHeader,
@@ -21,7 +21,7 @@ import { TableRow, TableCell } from "@/components/ui/table"
 import { useSession } from 'next-auth/react'
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { Input } from "@/components/ui/input"
 import * as z from "zod";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
@@ -42,18 +42,10 @@ export const formSchema = z.object({
 export default function EditAccountsForm({ userId, users, posts }: Props) {
     const [isPending, setIsPending] = useState<{ delete: boolean, edit: boolean }>({ delete: false, edit: false })
     const [open, setOpen] = useState<boolean>(false)
-    const [viewOnly, setViewOnly] = useState<boolean>(true)
     const { data: session } = useSession()
+    const [userDate, setUserDate] = useState<User | null>(null)
+    const [editMode, setEditMode] = useState<boolean>(false)
     const sessionUser: ExtendedUser = session?.user
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            username: "",
-            email: "",
-            role: "Admin",
-        },
-    })
 
     const deleteAccountAction = async () => {
         setIsPending(prev => ({ ...prev, delete: true }))
@@ -84,53 +76,95 @@ export default function EditAccountsForm({ userId, users, posts }: Props) {
         setIsPending(prev => ({ ...prev, delete: false }))
     }
 
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            username: "",
+            email: "",
+            role: "Admin",
+        },
+    })
+
+    useEffect(() => {
+        const user = users.find((user) => user.id === userId);
+        setUserDate(user!);
+        form.reset({
+            username: user?.name || "",
+            email: user?.email || "",
+            role: user?.role || "Admin",
+        });
+    }, [userId, users, form]);
+
     const editAccountAction = async (values: z.infer<typeof formSchema>) => {
-        setViewOnly(prev => !prev)
+        setEditMode(prev => !prev)
+        console.log("submitting")
     }
 
+    const saveAccountAction = async () => {
+        try {
+            const updatedUserData = form.getValues();
+            // Add logic to submit updatedUserData to update the user details
+            console.log("Saving changes", updatedUserData);
+
+            // If successful, reset the form and exit edit mode
+            form.reset();
+            setEditMode(false);
+        } catch (error) {
+            console.error("Error saving changes", error);
+            // Handle error
+        }
+    };
+
+    // The table is not being rendered properly focus on that.
+
     return (
+
         !!users && users.map((user: User) => {
             const postUser = posts.filter(post => post.authorId === user.id)
             const authorized = sessionUser?.role === "SuperAdmin" && session?.user?.email !== user.email;
             return (
                 <TableRow key={user.id}>
-                    <Form {...form}>
+                    <Form {...form} >
                         <form onSubmit={form.handleSubmit(editAccountAction)}>
                             <TableCell>{user.id}</TableCell>
                             <TableCell className="font-medium">
-                                {viewOnly ? user.name : (
+                                {editMode ? (
                                     <FormField
                                         control={form.control}
                                         name="username"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input type="text" {...field} onChange={(e) => field.onChange(e)} value={user.name} />
+                                                    <Input type="text" {...field} onChange={(e) => field.onChange(e)} defaultValue={field.value} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                )}
+                                ) :
+                                    user.name
+                                }
                             </TableCell>
                             <TableCell>
-                                {viewOnly ? user.email : (
+                                {editMode ? (
                                     <FormField
                                         control={form.control}
-                                        name="username"
+                                        name="email"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input type="text" {...field} onChange={(e) => field.onChange(e)} value={user.email} />
+                                                    <Input type="email" {...field} onChange={(e) => field.onChange(e)} value={user.email} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                )}
+                                ) :
+                                    user.email
+                                }
                             </TableCell>
                             <TableCell>
-                                {viewOnly ? user.role : (
+                                {editMode ? (
                                     <FormField
                                         control={form.control}
                                         name="role"
@@ -151,7 +185,9 @@ export default function EditAccountsForm({ userId, users, posts }: Props) {
                                             </FormItem>
                                         )}
                                     />
-                                )}
+                                ) :
+                                    user.role
+                                }
                             </TableCell>
                             <TableCell>{postUser.length}</TableCell>
                             {
@@ -160,9 +196,14 @@ export default function EditAccountsForm({ userId, users, posts }: Props) {
                                         Number(userId) === user.id ?
                                             <>
                                                 <Link href="/admin/accounts/">
-                                                    <RxCrossCircled size={25} className="hover:text-yellow-500 transition-colors duration-300" />
+                                                    <RxCrossCircled size={25} className="transition-colors duration-300 hover:text-yellow-500" />
                                                 </Link>
-                                                <SubmitButton className="bg-green-500 hover:bg-green-700" text='تعديل' pending={isPending.edit} />
+                                                {
+                                                    editMode ?
+                                                        <SubmitButton className="bg-green-500 hover:bg-green-700" text='حفظ التعديلات' pending={isPending.edit} />
+                                                        :
+                                                        <SubmitButton fn={() => setEditMode(true)} className="bg-green-500 hover:bg-green-700" text='تعديل' pending={isPending.edit} />
+                                                }
                                                 <AlertDialog open={open} onOpenChange={setOpen}>
                                                     <AlertDialogTrigger className={`${buttonVariants({ variant: "destructive" })}`}>مسح <FaRegTrashCan size={15} className="mr-1" /></AlertDialogTrigger>
                                                     <AlertDialogContent>
@@ -181,8 +222,8 @@ export default function EditAccountsForm({ userId, users, posts }: Props) {
                                                 </AlertDialog>
                                             </>
                                             :
-                                            <Button asChild>
-                                                <Link href={{ pathname: `/admin/accounts/`, query: { id: user.id } }}>
+                                            <Button asChild >
+                                                <Link onClick={() => setEditMode(true)} href={{ pathname: `/admin/accounts/`, query: { id: user.id } }}>
                                                     اجراء تعديلات
                                                 </Link>
                                             </Button>
@@ -191,7 +232,7 @@ export default function EditAccountsForm({ userId, users, posts }: Props) {
                             }
                         </form>
                     </Form>
-                </TableRow>
+                </TableRow >
             )
         })
     )
