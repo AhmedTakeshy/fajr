@@ -1,9 +1,8 @@
 "use server"
 import { SignUpFormSchema, signUpFormSchema } from "@/lib/formSchemas"
 import { prisma } from "@/lib/prisma"
-import { hash } from "bcrypt"
 import { revalidatePath } from "next/cache"
-
+import bcrypt, { hash } from "bcrypt";
 
 export async function signUp(values: SignUpFormSchema) {
     try {
@@ -86,5 +85,41 @@ export async function deleteUser(id: number) {
     } catch (error) {
         console.log(error);
         return { error: true, message: "هناك شيئا خاطئ لم يتم حذف الحساب", status: 401 }
+    }
+}
+
+export async function updateUser(values: SignUpFormSchema) {
+    try {
+        const result = await signUpFormSchema.safeParseAsync(values)
+        if (!result.success) {
+            return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
+        }
+        const { username, email, oldPassword, password, role } = result.data
+        const res = await prisma.user.findUnique({
+            where: {
+                email,
+            }
+        })
+        const pass = !!oldPassword && bcrypt.compareSync(oldPassword, res?.password!)
+        if (pass) {
+            const hashedPassword = await hash(password, 10)
+            const user = await prisma.user.update({
+                where: {
+                    email
+                },
+                data: {
+                    name: username,
+                    email: email.toLowerCase(),
+                    password: hashedPassword,
+                    role,
+                }
+            })
+            const { email: userEmail } = user
+            revalidatePath("/admin/accounts")
+            return { error: false, message: `لفد تم تعديل بيانات الحساب بنجاح `, status: 201 }
+        }
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "هناك شيئا خاطئ لم يتم تعديل الحساب", status: 401 }
     }
 }

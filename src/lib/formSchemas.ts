@@ -24,6 +24,7 @@ export const signUpFormSchema = z.object({
         message: "من فضلك ادخل بريد الكرتوني صحيح",
     }),
     role: z.enum(["Admin", "SuperAdmin"]),
+    oldPassword: z.string().optional(),
     password: z.string().min(8, {
         message: "كلمة السر يجب ان لا تقل عن 8 حروف",
     }),
