@@ -91,6 +91,7 @@ export async function deleteUser(id: number) {
 export async function updateUser(values: SignUpFormSchema) {
     try {
         const result = await signUpFormSchema.safeParseAsync(values)
+        console.log("🚀 ~ file: userActions.ts:94 ~ updateUser ~ values:", values)
         if (!result.success) {
             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
         }
