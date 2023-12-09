@@ -9,8 +9,9 @@ type Props = {
 
 export default async function page({params}:Props) {
     const {id} = params
-    const user:User = await getUserById(parseInt(id))as User
+    console.log("🚀 ~ file: page.tsx:12 ~ page ~ id:", id)
+    const user = !!id && await getUserById(parseInt(id))
   return (
-    <UpdateUserForm user={user}/>
+    <UpdateUserForm user={user as User}/>
   )
 }

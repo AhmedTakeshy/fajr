@@ -35,11 +35,13 @@ export default function UpdateUserForm({ user }: Props) {
     const [isPending, setIsPending] = useState(false)
     const [showPassword, setShowPassword] = useState<{
         password: boolean,
-        confirmPassword: boolean
+        confirmPassword: boolean,
+        oldPassword: boolean,
     }>
         ({
             password: false,
             confirmPassword: false,
+            oldPassword: false,
         })
 
     const router = useRouter()
@@ -57,8 +59,8 @@ export default function UpdateUserForm({ user }: Props) {
     })
 
     async function updateUserAction(data: any) {
+         console.log("submitting")
         try {
-            console.log("submitting")
             setIsPending(true)
             console.log("🚀 ~ file: UpdateUserForm.tsx:56 ~ updateUserAction ~ data", data)
             // const res = await updateUser(data)
@@ -70,6 +72,9 @@ export default function UpdateUserForm({ user }: Props) {
             console.error(error)
         }
     }
+
+
+    // The form is not working properly, it is not submitting the data because it's not being triggered
 
     return (
         <Tabs defaultValue="account" className="w-[400px]" dir="rtl">
@@ -89,7 +94,7 @@ export default function UpdateUserForm({ user }: Props) {
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <Form {...form} >
-                            <form onSubmit={form.handleSubmit(updateUserAction)}>
+                            <form onSubmit={form.handleSubmit((data)=>{updateUserAction(data); console.log("submitted")})}>
                                 <FormField
                                     control={form.control}
                                     name="username"
