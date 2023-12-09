@@ -9,8 +9,8 @@ type Props = {
 export default async function postId({ params }: Props) {
     
     const { id } = params;
-    const postId = id.slice(10, 11)
-    const post = await getPostById(Number(postId))
+    const postId = id.slice(10, -11)
+    const post = await getPostById(parseInt(postId))
     const user = await getUserById(post?.authorId!)
     return (
         <div className='container flex flex-col items-center justify-center mx-auto my-12'>
