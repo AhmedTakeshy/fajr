@@ -1,5 +1,5 @@
 "use server"
-import { SignUpFormSchema, signUpFormSchema } from "@/lib/formSchemas"
+import { PasswordSchema, SignUpFormSchema, UserUpdateSchema, passwordSchema, signUpFormSchema, userUpdateSchema } from "@/lib/formSchemas"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 import bcrypt, { hash } from "bcrypt";
@@ -88,39 +88,60 @@ export async function deleteUser(id: number) {
     }
 }
 
-export async function updateUser(values: SignUpFormSchema) {
+export async function updateUser(values: UserUpdateSchema) {
     try {
-        const result = await signUpFormSchema.safeParseAsync(values)
-        console.log("🚀 ~ file: userActions.ts:94 ~ updateUser ~ values:", values)
+        const result = await userUpdateSchema.safeParseAsync(values)
         if (!result.success) {
             return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
         }
-        const { username, email, oldPassword, password, role } = result.data
-        const res = await prisma.user.findUnique({
+        const { username, email, id, role } = result.data
+        const res = await prisma.user.update({
             where: {
+                id,
+            },
+            data: {
+                name: username,
                 email,
+                role
             }
         })
-        const pass = !!oldPassword && bcrypt.compareSync(oldPassword, res?.password!)
-        if (pass) {
-            const hashedPassword = await hash(password, 10)
-            const user = await prisma.user.update({
-                where: {
-                    email
-                },
-                data: {
-                    name: username,
-                    email: email.toLowerCase(),
-                    password: hashedPassword,
-                    role,
-                }
-            })
-            const { email: userEmail } = user
             revalidatePath("/admin/accounts")
-            return { error: false, message: `لفد تم تعديل بيانات الحساب بنجاح `, status: 201 }
-        }
+            return { error: false, message: `لفد تم تعديل بيانات الحساب بنجاح `, status: 200 }
     } catch (error) {
         console.log(error);
         return { error: true, message: "هناك شيئا خاطئ لم يتم تعديل الحساب", status: 401 }
+    }
+}
+
+export async function updatePassword(values: PasswordSchema){
+    try {
+        const result = await passwordSchema.safeParseAsync(values)
+        if (!result.success) {
+            return { error: true, message: "خطأ في البيانات المدخلة", status: 401 }
+        }
+        const { currentPassword, newPassword, id } = result.data
+        const user = await prisma.user.findUnique({
+            where: {
+                id
+            }
+        })
+        const isMatch = await bcrypt.compare(currentPassword, user?.password!)
+        if (!isMatch) {
+            return { error: true, message: "كلمة السر الحالية غير صحيحة", status: 401 }
+        }
+        const hashedPassword = await hash(newPassword, 10)
+        await prisma.user.update({
+            where: {
+                id
+            },
+            data: {
+                password: hashedPassword
+            }
+        })
+        revalidatePath("/admin/accounts")
+        return { error: false, message: "تم تحديث كلمة السر بنجاح", status: 200 }
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "هناك شيئا خاطئ لم يتم تحديث كلمة السر", status: 401 }
     }
 }
