@@ -35,7 +35,7 @@ export default function NavMenu() {
     return (
         <header className={`sticky !container z-10 top-6 `}>
             <NavigationMenu dir="rtl" className={`!container items-center rounded-xl max-w-none px-8 ${showBg && !open ? "py-4 shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""} justify-between hidden gap-2 md:flex h-full`}>
-                <Image className="ml-auto w-28 h-28" src="/imgs/logo.svg" width={100} height={32} alt="logo" />
+                <Image className="ml-auto" src="/imgs/logo.png" width={100} height={32} alt="logo" />
                 <NavigationMenuList className="items-center justify-between hidden gap-2 md:flex ">
                     <NavigationMenuItem>
                         <Link href="/" legacyBehavior passHref>
@@ -43,18 +43,18 @@ export default function NavMenu() {
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link href="#about" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>من نحن</NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <Link href="#contact" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>اتصل بنا</NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <Link href="#services" legacyBehavior passHref>
+                        <Link href="/#services" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>الخدمات</NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <Link href="/#testimonials" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>العملاء</NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <Link href="/#about" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>من نحن</NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -64,7 +64,7 @@ export default function NavMenu() {
             </NavigationMenu>
             {/* Nav for small screens */}
             <div className={`flex items-center justify-between h-full md:hidden rounded-xl px-8 my-8 ${showBg && !open ? "py-4 shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""}`}>
-                <Image className="ml-auto w-28 h-28" src="/imgs/logo.svg" width={130} height={32} alt="logo" />
+                <Image className="ml-auto" src="/imgs/logo.png" width={130} height={32} alt="logo" />
                 <Popover onOpenChange={setOpen} open={open}>
                     <PopoverTrigger asChild>
                         <div className="flex gap-2">
@@ -83,17 +83,22 @@ export default function NavMenu() {
                                 <NavigationMenuList className="flex flex-col items-center justify-center gap-2">
                                     <NavigationMenuItem>
                                         <Link href="/" legacyBehavior passHref>
-                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
+                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>الرئيسية</NavigationMenuLink>
                                         </Link>
                                     </NavigationMenuItem>
                                     <NavigationMenuItem>
-                                        <Link href="/posts" legacyBehavior passHref>
-                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>Posts</NavigationMenuLink>
+                                        <Link href="/#services" legacyBehavior passHref>
+                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>الخدمات</NavigationMenuLink>
                                         </Link>
                                     </NavigationMenuItem>
                                     <NavigationMenuItem>
-                                        <Link href="/profile" legacyBehavior passHref>
-                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>Profile</NavigationMenuLink>
+                                        <Link href="/#testimonials" legacyBehavior passHref>
+                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>العملاء</NavigationMenuLink>
+                                        </Link>
+                                    </NavigationMenuItem>
+                                    <NavigationMenuItem>
+                                        <Link href="/#about" legacyBehavior passHref>
+                                            <NavigationMenuLink onClick={() => setOpen(false)} className={navigationMenuTriggerStyle()}>من نحن</NavigationMenuLink>
                                         </Link>
                                     </NavigationMenuItem>
                                 </NavigationMenuList>
@@ -101,7 +106,6 @@ export default function NavMenu() {
                         </div>
                     </PopoverContent>
                 </Popover>
-
             </div>
         </header>
     )
