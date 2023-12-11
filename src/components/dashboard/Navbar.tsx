@@ -18,7 +18,7 @@ export default async function Navbar() {
         <header dir='rtl' className="bg-slate-200 dark:bg-gray-900">
             <div className="relative flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
                 <Link href="/" className="flex items-center">
-                    <Image className="w-20 ml-auto" src="/imgs/logo.svg" width={80} height={80} alt="logo" />
+                    <Image className="ml-auto " src="/imgs/logo.png" width={80} height={80} alt="logo" />
                 </Link>
                 <div className='flex items-center justify-end gap-3'>
                     <ModeToggler className="inline-flex md:hidden" />

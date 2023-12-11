@@ -41,6 +41,7 @@
     "react-icons": "^4.12.0",
     "react-map-gl": "^7.1.6",
     "react-slideshow-image": "^4.3.0",
+    "sharp": "^0.33.0",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
