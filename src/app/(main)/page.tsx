@@ -9,7 +9,7 @@ export default function Home() {
       <CarouselItem />
       <Services />
       <Posts />
-      <Team />
+      {/* <Team /> */}
     </main>
   );
 }
