@@ -16,7 +16,7 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-import { SignUpFormSchema, signUpFormSchema } from "@/lib/formSchemas"
+import { PasswordSchema, SignUpFormSchema, UserUpdateSchema, passwordSchema, signUpFormSchema, userUpdateSchema } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -24,6 +24,10 @@ import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../ui/select";
 import SubmitButton from "../SubmitButton";
+import * as z from "zod";
+import { toast } from "../ui/use-toast";
+import { updatePassword, updateUser } from "@/_actions/userActions";
+import { PiEyeBold, PiEyeClosedBold } from "react-icons/pi";
 
 type Props = {
     user: User
@@ -32,49 +36,125 @@ type Props = {
 export default function UpdateUserForm({ user }: Props) {
 
 
-    const [isPending, setIsPending] = useState(false)
+    const [isPending, setIsPending] = useState<{ userBtn: boolean, passwordBtn: boolean }>({ userBtn: false, passwordBtn: false })
     const [showPassword, setShowPassword] = useState<{
-        password: boolean,
+        newPassword: boolean,
         confirmPassword: boolean,
-        oldPassword: boolean,
+        currentPassword: boolean,
     }>
         ({
-            password: false,
+            newPassword: false,
             confirmPassword: false,
-            oldPassword: false,
+            currentPassword: false,
         })
 
     const router = useRouter()
 
-    const form = useForm<SignUpFormSchema>({
-        resolver: zodResolver(signUpFormSchema),
+
+    const userUpdateForm = useForm<UserUpdateSchema>({
+        resolver: zodResolver(userUpdateSchema),
         defaultValues: {
+            id: user.id,
             username: user.name || "",
             email: user.email || "",
-            oldPassword: "",
-            password: "",
-            confirmPassword: "",
             role: user.role || "Admin",
         },
     })
 
-    async function updateUserAction(data: any) {
-         console.log("submitting")
+
+
+    const passwordForm = useForm<PasswordSchema>({
+        resolver: zodResolver(passwordSchema),
+        defaultValues: {
+            id: user.id,
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+        },
+    })
+
+    async function updateUserAction(data: UserUpdateSchema) {
+        setIsPending(prev => ({ ...prev, userBtn: true }))
         try {
-            setIsPending(true)
-            console.log("🚀 ~ file: UpdateUserForm.tsx:56 ~ updateUserAction ~ data", data)
-            // const res = await updateUser(data)
-            // if (res) {
-            //     router.push("/admin/accounts")
-            // }
-            setIsPending(false)
+            const result = await userUpdateSchema.safeParseAsync(data)
+            if (!result.success) {
+                toast({
+                    title: "خطأ",
+                    description: "الرجاء التأكد من البيانات المدخلة",
+                    duration: 3000,
+                    variant: "destructive",
+                })
+                return
+            }
+            const res = await updateUser(result.data)
+            if (!res.error && res.status === 200) {
+                toast({
+                    title: "تم تحديث الحساب",
+                    description: res.message,
+                    duration: 3000,
+                })
+                router.replace("/admin/accounts")
+            } else {
+                toast({
+                    title: "خطأ",
+                    description: res.message,
+                    duration: 3000,
+                    variant: "destructive",
+                })
+            }
         } catch (error) {
             console.error(error)
+            toast({
+                title: "خطأ",
+                description: "حدث خطأ أثناء تحديث الحساب",
+                duration: 3000,
+                variant: "destructive",
+            })
         }
+        setIsPending(prev => ({ ...prev, userBtn: false }))
     }
 
 
-    // The form is not working properly, it is not submitting the data because it's not being triggered
+    async function changePassword(data: PasswordSchema) {
+        setIsPending(prev => ({ ...prev, passwordBtn: true }))
+        try {
+            const result = await passwordSchema.safeParseAsync(data)
+            if (!result.success) {
+                toast({
+                    title: "خطأ",
+                    description: "الرجاء التأكد من البيانات المدخلة",
+                    duration: 3000,
+                    variant: "destructive",
+                })
+                return
+            }
+            const res = await updatePassword(result.data)
+            if (!res.error && res.status === 200) {
+                toast({
+                    title: "تم تحديث كلمة السر",
+                    description: res.message,
+                    duration: 3000,
+                })
+                router.replace("/admin/accounts")
+            } else {
+                toast({
+                    title: "خطأ",
+                    description: res.message,
+                    duration: 3000,
+                    variant: "destructive",
+                })
+            }
+        } catch (error) {
+            console.error(error)
+            toast({
+                title: "خطأ",
+                description: "حدث خطأ أثناء تحديث كلمة السر",
+                duration: 3000,
+                variant: "destructive",
+            })
+        }
+        setIsPending(prev => ({ ...prev, passwordBtn: false }))
+    }
 
     return (
         <Tabs defaultValue="account" className="w-[400px]" dir="rtl">
@@ -92,42 +172,42 @@ export default function UpdateUserForm({ user }: Props) {
                             اضغط حفظ بعد الانتهاء.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <Form {...form} >
-                            <form onSubmit={form.handleSubmit((data)=>{updateUserAction(data); console.log("submitted")})}>
+                    <Form {...userUpdateForm} >
+                        <form onSubmit={userUpdateForm.handleSubmit(updateUserAction)}>
+                            <CardContent className="space-y-2">
                                 <FormField
-                                    control={form.control}
+                                    control={userUpdateForm.control}
                                     name="username"
                                     render={({ field }) => (
                                         <FormItem className="space-y-1">
                                             <FormLabel>أسم المستخدم</FormLabel>
                                             <FormControl>
-                                                <Input type="text" {...field} value={field.value} />
+                                                <Input type="text" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
                                 <FormField
-                                    control={form.control}
+                                    control={userUpdateForm.control}
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem className="space-y-1">
                                             <FormLabel>البريد الالكتروني</FormLabel>
                                             <FormControl>
-                                                <Input type="email" {...field} value={field.value} />
+                                                <Input type="email" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
                                 <FormField
-                                    control={form.control}
+                                    control={userUpdateForm.control}
                                     name="role"
                                     render={({ field }) => (
                                         <FormItem className="space-y-1">
                                             <FormControl>
-                                                <Select {...field} onValueChange={field.onChange} value={field.value}>
+                                                <Select {...field} onValueChange={field.onChange}>
                                                     <SelectTrigger className="w-[180px]">
                                                         <SelectValue placeholder="الصلاحيات" />
                                                     </SelectTrigger>
@@ -141,13 +221,12 @@ export default function UpdateUserForm({ user }: Props) {
                                         </FormItem>
                                     )}
                                 />
-                                <Button type="submit">حفظ</Button>
-                                {/* <SubmitButton className="w-auto" pending={isPending} text="حفظ" /> */}
-                            </form>
-                        </Form>
-                    </CardContent>
-                    <CardFooter>
-                    </CardFooter>
+                            </CardContent>
+                            <CardFooter>
+                                <SubmitButton className="w-auto" pending={isPending.userBtn} text="حفظ" />
+                            </CardFooter>
+                        </form>
+                    </Form>
                 </Card>
             </TabsContent>
             <TabsContent value="password">
@@ -160,19 +239,80 @@ export default function UpdateUserForm({ user }: Props) {
                             اضغط حفظ بعد الانتهاء.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="current">Current password</Label>
-                            <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
-                            <Input id="new" type="password" />
-                        </div>
-                    </CardContent>
-                    <CardFooter>
-                        <Button>Save password</Button>
-                    </CardFooter>
+                    <Form {...passwordForm} >
+                        <form onSubmit={passwordForm.handleSubmit(changePassword)}>
+                            <CardContent className="space-y-2">
+                                <FormField
+                                    control={passwordForm.control}
+                                    name="currentPassword"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>كلمة السر</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Input placeholder="*******" {...field} type={`${showPassword.currentPassword ? "text" : "password"}`} />
+                                                    {showPassword.currentPassword ?
+                                                        <PiEyeBold
+                                                            className={`hover:cursor-pointer absolute left-[10%] bottom-[28%]`}
+                                                            onClick={() => setShowPassword(prevState => ({ ...prevState, currentPassword: false }))} /> :
+                                                        <PiEyeClosedBold
+                                                            className={`hover:cursor-pointer absolute left-[10%] bottom-[28%]`} onClick={() => setShowPassword(prevState => ({ ...prevState, currentPassword: true }))} />
+                                                    }
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={passwordForm.control}
+                                    name="newPassword"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>كلمة السر الجديدة</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Input placeholder="*******" {...field} type={`${showPassword.newPassword ? "text" : "password"}`} />
+                                                    {showPassword.newPassword ?
+                                                        <PiEyeBold
+                                                            className={`hover:cursor-pointer absolute left-[10%] bottom-[28%]`}
+                                                            onClick={() => setShowPassword(prevState => ({ ...prevState, newPassword: false }))} /> :
+                                                        <PiEyeClosedBold
+                                                            className={`hover:cursor-pointer absolute left-[10%] bottom-[28%]`} onClick={() => setShowPassword(prevState => ({ ...prevState, newPassword: true }))} />
+                                                    }
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={passwordForm.control}
+                                    name="confirmPassword"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>تاكيد كلمة السر</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Input placeholder="*******" {...field} type={`${showPassword.confirmPassword ? "text" : "password"}`} />
+                                                    {showPassword.confirmPassword ?
+                                                        <PiEyeBold
+                                                            className={`hover:cursor-pointer absolute left-[10%] bottom-[28%]`}
+                                                            onClick={() => setShowPassword(prevState => ({ ...prevState, confirmPassword: false }))} /> :
+                                                        <PiEyeClosedBold
+                                                            className={`hover:cursor-pointer absolute left-[10%] bottom-[28%]`} onClick={() => setShowPassword(prevState => ({ ...prevState, confirmPassword: true }))} />}
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </CardContent>
+                            <CardFooter>
+                                <SubmitButton className="w-auto" pending={isPending.passwordBtn} text="حفظ" />
+                            </CardFooter>
+                        </form>
+                    </Form>
                 </Card>
             </TabsContent>
         </Tabs>

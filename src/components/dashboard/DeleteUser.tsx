@@ -20,10 +20,11 @@ import { useRouter } from 'next/navigation'
 
 type Props = {
     userId: number
+    email: string
 }
 
 
-export default function DeleteUser({ userId }: Props) {
+export default function DeleteUser({ userId,email }: Props) {
     const [isPending, setIsPending] = useState<{ delete: boolean, edit: boolean }>({ delete: false, edit: false })
     const [open, setOpen] = useState<boolean>(false)
     const router = useRouter()
@@ -67,7 +68,7 @@ export default function DeleteUser({ userId }: Props) {
                     <AlertDialogTitle>هل انت متاكد؟</AlertDialogTitle>
                     <AlertDialogDescription>
                         هذا الفعل لا يمكن التراجع عنه.
-                        هذا الفعل سيمسح الحساب بشكل نهائي من جميع خوادمنا. وقواعد البيانات بشكل نهائي.
+                        هذا الفعل سيمسح هذا الحساب <span className='text-white underline'>{email}</span> بشكل نهائي من جميع خوادمنا. وقواعد البيانات بشكل نهائي.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="!justify-start">
