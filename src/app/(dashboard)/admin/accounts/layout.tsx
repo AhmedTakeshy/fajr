@@ -13,12 +13,10 @@ import { RxCrossCircled } from "react-icons/rx"
 
 
 type Props = {
-  params: { id: string }
   children: React.ReactNode
 }
 
-export default async function UsersTable({ params, children }: Props) {
-  const userId = params?.id
+export default async function UsersTable({ children }: Props) {
   const users: User[] = await getUsers()
   const posts: Post[] = await getPosts()
 
@@ -48,7 +46,7 @@ export default async function UsersTable({ params, children }: Props) {
               return (
                 <TableRow
                   key={user.id}
-                  className={parseInt(userId!) === user.id ? "bg-muted/50" : ""}
+                  // className={parseInt(userId!) === user.id ? "bg-muted/50" : ""}
                 >
                   <TableCell>{user.id}</TableCell>
                   <TableCell className="font-medium">{user.name}</TableCell>
@@ -62,7 +60,7 @@ export default async function UsersTable({ params, children }: Props) {
                     <Button asChild className="bg-green-500 hover:bg-green-700" >
                       <Link href={`/admin/accounts/${user.id}`}>تعديل</Link>
                     </Button>
-                    {!!delAuthorized && <DeleteUser userId={user.id} />}
+                    {!!delAuthorized && <DeleteUser email={user.email} userId={user.id} />}
                   </TableCell>
                 </TableRow>
               )
