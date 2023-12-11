@@ -13,7 +13,7 @@ export async function generateStaticParams() {
   const posts = await getPosts()
 
   return posts.map((post) => ({
-    id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(10, -11)}`,
+    id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(10, 22)}`,
   }))
 }
 
@@ -25,7 +25,6 @@ export async function generateMetadata({ params }: Props) {
   const metadata: Metadata = {
     title: `${post?.title} | شركة فجر بغداد`,
     description: post?.content,
-    keywords: post?.topic ? post?.topic.split(" ") : post?.content.split(" "),
   }
   return metadata
 

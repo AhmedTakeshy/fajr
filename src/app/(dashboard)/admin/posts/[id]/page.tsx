@@ -1,11 +1,20 @@
 import PostDetails from '@/components/PostDetails';
-import { getPostById } from '@/_actions/postActions';
+import { getPostById, getPosts } from '@/_actions/postActions';
 import { getUserById } from '@/_actions/userActions';
 
 
 type Props = {
     params: { id: string }
 }
+
+export async function generateStaticParams() {
+    const posts:Post[] = await getPosts()
+
+    return posts.map((post) => ({
+        id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(10, 22)}`,
+    }))
+}
+
 export default async function postId({ params }: Props) {
     
     const { id } = params;
