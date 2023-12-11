@@ -24,7 +24,6 @@ export const signUpFormSchema = z.object({
         message: "من فضلك ادخل بريد الكرتوني صحيح",
     }),
     role: z.enum(["Admin", "SuperAdmin"]),
-    oldPassword: z.string().optional(),
     password: z.string().min(8, {
         message: "كلمة السر يجب ان لا تقل عن 8 حروف",
     }),
@@ -48,9 +47,30 @@ export const postFormSchema = z.object({
     
 })
 
+export const userUpdateSchema = z.object({
+    id: z.number().int().positive(),
+    username: z.string().min(3, { message: "اسم المستخدم يجب ان يكون اكثر من 3 احرف" }),
+    email: z.string().email({ message: "البريد الالكتروني غير صحيح" }),
+    role: z.enum(["Admin", "SuperAdmin"]),
+})
+
+export const passwordSchema = z.object({
+    id: z.number().int().positive(),
+    currentPassword: z.string().min(8, { message: "كلمة السر يجب ان تكون اكثر من 8 احرف" }),
+    newPassword: z.string().min(8, { message: "كلمة السر يجب ان تكون اكثر من 8 احرف" }),
+    confirmPassword: z.string().min(8, { message: "كلمة السر يجب ان تكون اكثر من 8 احرف" }),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "كلمة السر غير متطابقة",
+})
+
+
 export type SubscribeFormSchema = z.infer<typeof subscribeFormSchema>
 
 export type SignInFormSchema = z.infer<typeof signInFormSchema>
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
 
 export type PostFormSchema = z.infer<typeof postFormSchema>
+
+export type UserUpdateSchema = z.infer<typeof userUpdateSchema>
+export type PasswordSchema = z.infer<typeof passwordSchema>
