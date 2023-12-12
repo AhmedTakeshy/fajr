@@ -21,7 +21,7 @@ export default async function UsersTable({ children }: Props) {
   const posts: Post[] = await getPosts()
 
   const session = await getServerSession(authOptions)
-  const sessionUser: ExtendedUser = session?.user
+  const sessionUser = session?.user
   const subscribedUsers = await getAllSubscribers()
 
   return (

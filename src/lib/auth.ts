@@ -47,14 +47,14 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user, account, profile }) {
-            if (user as ExtendedUser) token.role = user.role as ExtendedUser
+            if (user) token.role = user.role
             return token
         },
         async signIn({ user, account, profile, email, credentials }) {
             return true
         },
         async session({ session, token, user }) {
-            session.user = { ...session.user, role: token.role } as ExtendedUser
+            if(session?.user) session.user.role = token.role
             return session
         },
         
