@@ -18,13 +18,12 @@ export default function MapPage() {
                 mapboxAccessToken={mapboxToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 {...viewState}
-                minZoom={3}
                 style={{ width: "100%", height: "100%", borderRadius: "8px" }}
             >
                 <Link href=" https://maps.app.goo.gl/fFC5S6ba6ABJiBuz6" target="_blank">
                 <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="red" anchor="top"/>
                     {showPopup && (
-                        <Popup style={{ color: "black", fontWeight: "800", fontSize: "1.1rem" }} longitude={viewState.longitude} latitude={viewState.latitude}
+                        <Popup style={{ color: "black", fontWeight: "700", fontSize: "1.1rem" }} longitude={viewState.longitude} latitude={viewState.latitude}
                             offset={25}
                             anchor="top"
                             onClose={() => setShowPopup(false)}>
