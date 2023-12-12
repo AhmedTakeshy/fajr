@@ -22,14 +22,3 @@ type User = {
 
 }
 
-// type ExtendedUser = User & {
-//     role?: string | null | undefined;
-// };
-
-type ExtendedUser = {
-    name?: string | null | undefined;
-    email?: string | null | undefined;
-    image?: string | null | undefined;
-    role?: string | null | undefined;
-} | undefined
-
