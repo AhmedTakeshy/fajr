@@ -1,7 +1,7 @@
 "use client"
 import Map, { Marker, Popup, NavigationControl, FullscreenControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ImLocation } from "react-icons/im";
 
@@ -13,13 +13,26 @@ export default function MapPage() {
         longitude: 44.323928150187406,
         zoom: 16,
     })
+    const [width, setWidth] = useState<number>(window.innerWidth)
+
+    const handleWindowResize = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowResize);
+        return () => window.removeEventListener("resize", handleWindowResize);
+    }, []);
+
+    const isMobile = width <= 768;
+
     return (
-        <div className="max-w-full flex justify-center lg:justify-end my-12 lg:my-0">
+        <div className="md:max-w-full flex justify-center xl:justify-end my-12 lg:my-0">
             <Map
                 mapboxAccessToken={mapboxToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 {...viewState}
-                style={{ width: 600, height: 450, borderRadius: "1rem" }}
+                style={{ width: `${isMobile ? "75%" : "100%"}`, height: 450, borderRadius: "1rem", padding: "1rem" }}
                 cursor="pointer"
                 optimizeForTerrain={true}
                 onZoom={(e) => setViewState(e.viewState)}
