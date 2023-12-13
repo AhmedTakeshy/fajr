@@ -14,17 +14,17 @@ export default function MapPage() {
         zoom: 16,
     })
     return (
-        <div className="max-w-full mx-8 flex justify-center my-12 lg:my-4">
+        <div className="max-w-full flex justify-center lg:justify-end my-12 lg:my-0">
             <Map
                 mapboxAccessToken={mapboxToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 {...viewState}
-                style={{ width: 600, height: 450, borderRadius: "1rem",maxWidth:"80%" }}
+                style={{ width: 600, height: 450, borderRadius: "1rem" }}
                 cursor="pointer"
                 optimizeForTerrain={true}
                 onZoom={(e) => setViewState(e.viewState)}
             >
-                <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="red" anchor="top">
+                <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="transparent" anchor="top">
                     <Link href="https://maps.app.goo.gl/fFC5S6ba6ABJiBuz6" target="_blank">
                         <ImLocation size={30} className="text-red-500" />
                     </Link>
