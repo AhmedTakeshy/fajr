@@ -55,7 +55,7 @@ export default function SubscribeForm() {
    
 return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} method="get" className="flex flex-col items-center justify-center gap-2">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex  items-center justify-end gap-4">
             <FormField
                 control={form.control}
                 name="email"
@@ -68,7 +68,7 @@ return (
                     </FormItem>
                 )}
             />
-            <SubmitButton className="w-auto"  sz="lg" text="اشتراك"/>
+                <SubmitButton className="w-auto"  sz="lg" text="اشتراك"/>
         </form>
     </Form>
 )
