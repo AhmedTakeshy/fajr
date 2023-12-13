@@ -16,7 +16,7 @@ export default function Footer() {
 
   return (
     <footer id='about' className='w-full bg-gray-300 pt-9 dark:bg-sky-950'>
-      <section className='container grid place-content-between lg:grid-cols-2 my-4'>
+      <section className='container grid place-content-center xl:place-content-between xl:grid-cols-2 my-4'>
         <div className="flex flex-col items-center gap-2 text-right mr-4">
           <h2 className='text-2xl font-bold text-left'>شـــــــركة فجـــــــر بغــــــداد</h2>
           <Link href="tel:07509952084" className='mt-4 self-start mr-5'>
@@ -56,10 +56,16 @@ export default function Footer() {
         <Suspense fallback={<Skeleton className="w-[600.5px] h-[400] rounded-lg" />}>
           <MapPage />
         </Suspense>
-        <hr className='w-full border-t-2 col-span-2 my-8 rounded-md border-sky-800 dark:border-slate-950' />
-        <section className='grid sm:grid-cols-2 place-content-between col-span-2'>
+        <hr className='w-full border-t-2 xl:col-span-2 my-8 rounded-md border-sky-800 dark:border-slate-950 text-center' />
+        <section className='grid xl:grid-cols-2 text-center xl:text-justify gap-3 place-content-center xl:place-content-between xl:col-span-2'>
+          <div className='order-2 xl:order-none'>
           <p className=' text-slate-800 dark:text-slate-100'>جميع الحقوق محفوظة شـــــــركة فجـــــــر بغــــــداد © 2023</p>
-          <div className='flex items-center justify-end gap-3 mb-2'>
+          <p className={`${inter.className} !mt-0`}>تم التصميم والتطوير بواسطة
+            <Link href='https://www.takeshy.works/' target='_blank' className="font-bold transition-all duration-500 text-rose-600 hover:tracking-widest hover:will-change-transform"> Takeshy</Link>
+          </p>
+          </div>
+          <div className='order-1 xl:order-none'>
+          <div className='flex items-center justify-center xl:justify-end gap-3 mb-2'>
             <Link href="https://www.tiktok.com/@fajer_bg?_t=8hStlZjRw18&_r=1" target="_blank" className='relative group'>
               <Image src='/imgs/tiktok.svg' width={20} height={20} className='transition duration-500 opacity-0 group-hover:opacity-100' alt='TikTok logo' />
               <FaTiktok className="absolute top-[50%] translate-y-[-50%] right-0 transition duration-500 opacity-100 group-hover:opacity-0" size={20} />
@@ -77,10 +83,8 @@ export default function Footer() {
               <FaInstagram size={20} className="relative z-[1]" />
             </Link>
           </div>
-          <p className={`${inter.className} !mt-0`}>تم التصميم والتطوير بواسطة
-            <Link href='https://www.takeshy.works/' target='_blank' className="font-bold transition-all duration-500 text-rose-600 hover:tracking-widest hover:will-change-transform"> Takeshy</Link>
-          </p>
           <SubscribeForm />
+          </div>
         </section>
       </section>
     </footer >
