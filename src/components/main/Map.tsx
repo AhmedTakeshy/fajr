@@ -37,20 +37,17 @@ export default function MapPage() {
                 optimizeForTerrain={true}
                 onZoom={(e) => setViewState(e.viewState)}
             >
-                <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="transparent" anchor="top">
-                    <Link href="https://maps.app.goo.gl/fFC5S6ba6ABJiBuz6" target="_blank">
-                        <ImLocation size={30} className="text-red-500" />
-                    </Link>
-                </Marker>
-                <ImLocation size={30} className="text-red-500" />
+                <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="red" anchor="top"/>
                 {showPopup && (
-                    <Popup style={{ color: "black", fontWeight: "700", fontSize: "1.1rem", width: "8rem", padding: ".7rem", textAlign: "center" }} longitude={viewState.longitude} latitude={viewState.latitude}
+                    <Popup style={{ color: "black", fontWeight: "700", fontSize: "1.1rem", width: "15rem", padding: ".7rem", textAlign: "center" }} longitude={viewState.longitude} latitude={viewState.latitude}
                         offset={20}
                         anchor="top"
-                        onClose={() => setShowPopup(false)}
                     >
-                        شركة فجر بغداد
-                    </Popup>)}
+                        بغداد نفق الشرطة شارع الكنيسة قرب كنيسة مار يوسف مجاور خياطة عامر العيساوي للدشاديش مقابل مصرف  بغداد / عمارة الرحمن الطابق ٣ الاخير 
+                        <Link href="https://maps.app.goo.gl/fFC5S6ba6ABJiBuz6" target="_blank" className="text-cyan-600 hover:underline underline-offset-2">
+                            اضغط هنا للتوجه للموقع
+                        </Link>
+                        </Popup>)}
                 <FullscreenControl position="top-left" />
                 <NavigationControl position="top-left" />
             </Map>
