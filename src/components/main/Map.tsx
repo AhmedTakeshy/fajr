@@ -14,12 +14,12 @@ export default function MapPage() {
         zoom: 16,
     })
     return (
-        <div className="max-w-full mx-8 my-4">
+        <div className="max-w-full mx-8 flex justify-center my-12 lg:my-4">
             <Map
                 mapboxAccessToken={mapboxToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 {...viewState}
-                style={{ width: 600, height: 450, borderRadius: "1rem" }}
+                style={{ width: 600, height: 450, borderRadius: "1rem",maxWidth:"80%" }}
                 cursor="pointer"
                 optimizeForTerrain={true}
                 onZoom={(e) => setViewState(e.viewState)}
