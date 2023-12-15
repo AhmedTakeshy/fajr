@@ -37,7 +37,7 @@
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.49.1",
+    "react-hook-form": "^7.49.2",
     "react-icons": "^4.12.0",
     "react-map-gl": "^7.1.6",
     "react-slideshow-image": "^4.3.0",
