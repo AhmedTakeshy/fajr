@@ -58,7 +58,7 @@ export default async function UsersTable({ children }: Props) {
                       <RxCrossCircled size={25} className="transition-colors duration-300 hover:text-yellow-500" />
                     </Link> */}
                     <Button asChild className="bg-green-500 hover:bg-green-700" >
-                      <Link href={`/admin/accounts/${user.id}`}>تعديل</Link>
+                      <Link href={`/admin/accounts/${user.publicId.slice(0, 10) + user.id + user.publicId.slice(-11)}`}>تعديل</Link>
                     </Button>
                     {!!delAuthorized && <DeleteUser email={user.email} userId={user.id} />}
                   </TableCell>
