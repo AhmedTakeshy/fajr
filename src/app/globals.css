@@ -114,6 +114,10 @@ html {
   cursor: pointer;
 }
 
+.containerX {
+  @apply w-full gap-12 px-8 mx-auto;
+  max-width: calc(100% - 10rem);
+}
 
 @layer base {
   * {
