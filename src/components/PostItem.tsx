@@ -24,9 +24,9 @@ export default function PostItem({ title, description, img, updatedAt, publicId,
             className="flex flex-col items-start justify-between rounded-lg shadow-md dark:bg-sky-950 bg-slate-300">
             {!!img&&<Image src={img} alt={`blog image`} width={255} height={163.2} className="w-full rounded-t-lg" />}
             <div className="px-4 py-8 border-b border-slate-700">
-                <h3 className="mb-2 text-2xl dark:text-slate-200 text-slate-400">{title}</h3>
+                <h3 className="mb-2 text-2xl font-medium text-black dark:text-white">{title}</h3>
                 <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>
-                <p className="text-xl line-clamp-6 dark:text-slate-500 text-slate-700">{description}</p>
+                <p className="text-xl line-clamp-6 dark:text-slate-200 text-slate-700">{description}</p>
             </div>
             <RoutingLink publicId={publicId} id={id} />
             {!!updatedAt && (<span className='px-5 pb-1 text-sm text-slate-500'>اخر تحديث: {newDate} </span>)}
