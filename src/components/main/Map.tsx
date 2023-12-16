@@ -13,15 +13,15 @@ export default function MapPage() {
         longitude: 44.323928150187406,
         zoom: 16,
     })
-    const [width, setWidth] = useState<number>(window.innerWidth)
+    const [width, setWidth] = useState<number>(global.innerWidth)
 
     const handleWindowResize = () => {
-        setWidth(window.innerWidth);
+        setWidth(global.innerWidth);
     };
 
     useEffect(() => {
-        window.addEventListener("resize", handleWindowResize);
-        return () => window.removeEventListener("resize", handleWindowResize);
+        global.addEventListener("resize", handleWindowResize);
+        return () => global.removeEventListener("resize", handleWindowResize);
     }, []);
 
     const isMobile = width <= 768;
