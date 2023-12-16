@@ -19,6 +19,5 @@ type User = {
     updatedAt: Date;
     publicId: string;
     createdAt: Date;
-
 }
 
