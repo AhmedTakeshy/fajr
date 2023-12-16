@@ -8,14 +8,14 @@ type ServiceProps = {
 
 export default function ServiceItem({ title, description, icon }: ServiceProps) {
     return (
-        <article dir='ltr' className='grid grid-cols-[1fr,auto] place-items-end text-right gap-x-4'>
-            <h3 className="mb-2 text-2xl dark:text-slate-200 text-slate-400">{title}</h3>
+        <article  className='grid grid-cols-[1fr,auto] place-items-start text-right gap-x-4 place-content-start'>
+            <h3 className="mb-2 text-2xl font-semibold text-black dark:text-slate-100">{title}</h3>
             {icon}
-            <ol className="text-xl dark:text-slate-500 text-slate-700">
+            <ul className="space-y-2 text-xl list-disc dark:text-slate-300 text-slate-700">
                 {description.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li className="" key={index}>{item}</li>
                 ))}
-            </ol>
+            </ul>
         </article>
     )
 }
