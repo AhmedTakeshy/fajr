@@ -1,5 +1,16 @@
 import PostForm from '@/components/dashboard/PostForm'
-import { getPostById } from '@/_actions/postActions'
+import { getPostById, getPosts } from '@/_actions/postActions'
+
+
+
+export async function generateStaticParams() {
+  const posts = await getPosts()
+
+  return posts.map((post) => ({
+    id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(-11)}`,
+  }))
+}
+
 
 type Props = {
   params: {id: string}

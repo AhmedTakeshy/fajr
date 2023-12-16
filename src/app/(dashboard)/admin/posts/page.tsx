@@ -5,7 +5,7 @@ import { getPosts } from '@/_actions/postActions'
 
 
 export default async function Posts() {
-    const posts:Post[] = await getPosts()
+    const posts = await getPosts()
     return (
     <div className="container grid gap-8 my-20 text-3xl font-extrabold place-items-start ">
             <PostForm type='new' />
