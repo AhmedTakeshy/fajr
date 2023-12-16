@@ -35,7 +35,7 @@ export default function NavMenu() {
     return (
         <header className={`sticky !container z-10 top-6 `}>
             <NavigationMenu dir="rtl" className={`!container items-center rounded-xl max-w-none px-8 ${showBg && !open ? "py-4 shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""} justify-between hidden gap-2 md:flex h-full`}>
-                <Image className="ml-auto" src="/imgs/logo.png" width={100} height={32} alt="logo" />
+                <Image className="ml-auto" src="/imgs/logo.png" width={100} height={75} alt="logo" />
                 <NavigationMenuList className="items-center justify-between hidden gap-2 md:flex ">
                     <NavigationMenuItem>
                         <Link href="/" legacyBehavior passHref>
