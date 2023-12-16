@@ -13,7 +13,7 @@ export async function generateStaticParams() {
   const posts = await getPosts()
 
   return posts.map((post) => ({
-    id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(10, 22)}`,
+    id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(-11)}`,
   }))
 }
 
