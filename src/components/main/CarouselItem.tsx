@@ -8,21 +8,14 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import Link from "next/link";
 
 
-const big2 = "/imgs/pic2-big.jpg";
-const small2 = "/imgs/pic2-small.jpg";
 const big3 = "/imgs/pic3-big.jpg";
-const small3 = "/imgs/pic3-small.jpg";
-const big4 = "/imgs/pic4-big.jpg";
-const small4 = "/imgs/pic4-small.jpg";
 const big5 = "/imgs/pic5-big.jpg";
 const big6 = "/imgs/pic6-big.jpg";
 
 const images = [
-    { big: big5, small: big5 },
-    { big: big2, small: small2 },
-    { big: big6, small: big6 },
-    { big: big4, small: small4 },
-    { big: big3, small: small3 },
+    big5,
+    big6,
+    big3,
 ];
 
 
@@ -59,10 +52,9 @@ export default function CarouselItem() {
                     return (
                         <Image
                             loading="lazy"
-                            placeholder="blur"
+                            placeholder="empty"
                             key={index}
-                            src={image.big}
-                            blurDataURL={`${image.small}`}
+                            src={image}
                             width={1920}
                             height={1280}
                             alt="carousel images"
