@@ -106,7 +106,7 @@ export async function unPublishPost(id: number) {
     }
 }
 
-export async function getPosts() {
+export async function getPosts(): Promise<Post[]> {
     const posts = await prisma.post.findMany({
         orderBy: {
             createdAt: "desc"
@@ -115,11 +115,11 @@ export async function getPosts() {
     return posts
 }
 
-export async function getPostById(id: number) {
+export async function getPostById(id: number): Promise<Post> {
     const post = await prisma.post.findUnique({
         where: {
             id
         }
     })
-    return post
+    return post as Post
 }
