@@ -40,7 +40,7 @@ export async function signUp(values: SignUpFormSchema) {
 
 }
 
-export async function getUsers() {
+export async function getUsers(): Promise<User[]> {
     const users = await prisma.user.findMany({
         select: {
             id: true,
@@ -64,13 +64,13 @@ export async function getUserByEmail(email: string) {
     })
     return user
 }
-export async function getUserById(id: number) {
+export async function getUserById(id: number):Promise<User> {
     const user = await prisma.user.findUnique({
         where: {
             id
         }
     })
-    return user
+    return user as User
 }
 
 export async function deleteUser(id: number) {
