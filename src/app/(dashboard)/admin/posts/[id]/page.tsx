@@ -1,5 +1,5 @@
 import PostDetails from '@/components/PostDetails';
-import { getPostById, getPosts } from '@/_actions/postActions';
+import { getPostById } from '@/_actions/postActions';
 import { getUserById } from '@/_actions/userActions';
 import { prisma } from '@/lib/prisma';
 
