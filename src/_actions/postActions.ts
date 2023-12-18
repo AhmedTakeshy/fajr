@@ -1,4 +1,5 @@
 "use server"
+import 'server-only'
 import { PostFormSchema, postFormSchema } from "@/lib/formSchemas"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
@@ -106,15 +107,25 @@ export async function unPublishPost(id: number) {
     }
 }
 
-export async function getPosts({page}:{page:number}): Promise<Post[]> {
+type T = { posts: Post[], metadata: { hasNext: boolean, totalPages: number } };
+export async function getPosts({pageNumber}:{pageNumber:number}): Promise<T> {
     const posts = await prisma.post.findMany({
         orderBy: {
             createdAt: "desc"
         },
-        skip: (page - 1) * 4,
+        skip: (pageNumber - 1) * 4,
         take: 4,
     })
-    return posts
+
+    const totalPosts = await prisma.post.count()
+    revalidatePath("/posts")
+    return {
+        posts,
+        metadata: {
+            hasNext: totalPosts > pageNumber * 4,
+            totalPages: Math.ceil(totalPosts / 4)
+        }
+    }
 }
 
 export async function getPostById(id: number): Promise<Post> {
