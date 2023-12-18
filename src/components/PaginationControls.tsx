@@ -15,8 +15,6 @@ type Props = {
 export default function PaginationControls({ metadata,pageNumber }: Props) {
 
     const currentPage = parseInt(pageNumber)
-    console.log(metadata.hasNext)
-
 
     return (
         <div className='flex items-center justify-center gap-2 my-8'>
