@@ -10,6 +10,7 @@ import DeleteUser from "@/components/dashboard/DeleteUser"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { RxCrossCircled } from "react-icons/rx"
+import { prisma } from "@/lib/prisma"
 
 
 type Props = {
@@ -18,7 +19,7 @@ type Props = {
 
 export default async function UsersTable({ children }: Props) {
   const users: User[] = await getUsers()
-  const posts: Post[] = await getPosts()
+  const posts: Post[] = await prisma.post.findMany()
 
   const session = await getServerSession(authOptions)
   const sessionUser = session?.user
