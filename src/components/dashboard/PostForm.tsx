@@ -104,6 +104,7 @@ export default function PostForm({ type, data, id }: Props) {
                 });
                 router.push("/admin/posts");
                 if (type === "new") {
+                    setOpen(false);
                     form.reset();
                 }
             } else {
