@@ -1,6 +1,7 @@
 import PostDetails from '@/components/PostDetails';
 import { getPostById, getPosts } from '@/_actions/postActions';
 import { getUserById } from '@/_actions/userActions';
+import { prisma } from '@/lib/prisma';
 
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-    const posts = await getPosts()
+    const posts = await prisma.post.findMany({ where: { published: true } })
 
     return posts.map((post) => ({
         id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(-11)}`,
