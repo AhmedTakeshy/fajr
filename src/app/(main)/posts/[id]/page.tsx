@@ -10,7 +10,7 @@ type Props = {
 
 
 export async function generateStaticParams() {
-  const posts = await getPosts()
+  const posts = await getPosts({ page: 1 })
 
   return posts.map((post) => ({
     id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(-11)}`,

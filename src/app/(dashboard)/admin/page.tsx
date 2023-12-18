@@ -4,7 +4,7 @@ import PostItem from '@/components/PostItem'
 
 
 export default async function Admin() {
-  const posts:Post[] = await getPosts()
+  const posts:Post[] = await getPosts({page:1})
   return (
     <>
     <div className="!container flex flex-col items-center my-20 text-3xl font-extrabold ">

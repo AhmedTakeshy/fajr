@@ -3,7 +3,7 @@ import PostItem from "@/components/PostItem";
 
 
 export default async function page() {
-    const posts = await getPosts();
+    const posts = await getPosts({ page: 1 });
     return (
         <div className="container grid gap-10 mx-auto my-20 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-center place-content-center">
             {posts.map(post => !!post.published &&

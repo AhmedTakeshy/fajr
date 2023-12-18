@@ -106,11 +106,13 @@ export async function unPublishPost(id: number) {
     }
 }
 
-export async function getPosts(): Promise<Post[]> {
+export async function getPosts({page}:{page:number}): Promise<Post[]> {
     const posts = await prisma.post.findMany({
         orderBy: {
             createdAt: "desc"
         },
+        skip: (page - 1) * 4,
+        take: 4,
     })
     return posts
 }

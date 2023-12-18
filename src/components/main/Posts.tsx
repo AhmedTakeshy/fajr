@@ -4,7 +4,7 @@ import PostItem from "../PostItem";
 import { getPosts } from '@/_actions/postActions'
 
 export default async function Posts() {
-  const posts:Post[] = await getPosts();
+  const posts: Post[] = await getPosts({ page: 1 });
 
   return (
     <MotionSection id="jobs" variants={fadeIn("up", 0.5)}

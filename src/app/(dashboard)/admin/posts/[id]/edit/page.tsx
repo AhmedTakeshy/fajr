@@ -1,10 +1,11 @@
 import PostForm from '@/components/dashboard/PostForm'
 import { getPostById, getPosts } from '@/_actions/postActions'
+import { prisma } from '@/lib/prisma'
 
 
 
 export async function generateStaticParams() {
-  const posts = await getPosts()
+  const posts = await prisma.post.findMany({where:{published:true}})
 
   return posts.map((post) => ({
     id: `${post.publicId.slice(0, 10) + post.id + post.publicId.slice(-11)}`,
