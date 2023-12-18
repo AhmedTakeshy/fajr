@@ -12,6 +12,7 @@ export default async function page() {
             id={post.id} 
             publicId={post.publicId} 
             title={post.title}
+            topic={post.topic || ""}
             description={post.content} 
             updatedAt={post.updatedAt} 
             />)}

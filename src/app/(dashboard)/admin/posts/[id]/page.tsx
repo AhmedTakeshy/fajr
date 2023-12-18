@@ -29,7 +29,8 @@ export default async function postId({ params }: Props) {
             key={post?.id} 
             updatedAt={post?.updatedAt.toISOString()} 
             id={post?.id!}
-            title={post?.title!} 
+            title={post?.title!}
+            topic={post?.topic || ""}
             description={post?.content!} />
         </div>
     )

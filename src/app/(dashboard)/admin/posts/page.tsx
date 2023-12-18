@@ -11,7 +11,7 @@ export default async function Posts() {
             <PostForm type='new' />
         <div className="grid gap-10 mt-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-center">
             {posts.map((post) => (
-                <PostItem updatedAt={post.updatedAt} key={post.id} publicId={post.publicId} id={post.id} title={post.title} description={post.content!} />
+                <PostItem updatedAt={post.updatedAt} key={post.id} publicId={post.publicId} id={post.id} title={post.title} description={post.content!} topic={post.topic || ""}/>
             ))}
         </div>
     </div>

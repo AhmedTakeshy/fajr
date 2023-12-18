@@ -36,7 +36,7 @@ export default async function postId({ params }: Props) {
   const post = await getPostById(parseInt(postId))
   return (
     <div className='container flex flex-col items-center justify-center mx-auto my-12'>
-      <PostDetails updatedAt={post?.updatedAt.toISOString()} id={post?.id!} title={post?.title!} description={post?.content!} />
+      <PostDetails updatedAt={post?.updatedAt.toISOString()} id={post?.id!} title={post?.title!} description={post?.content!} topic={post.topic || ""}/>
     </div>
   )
 }
