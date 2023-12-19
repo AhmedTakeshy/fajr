@@ -6,10 +6,9 @@ type Props = {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function page(props: Props) {
-    const searchParams = props.searchParams;
-    const page = searchParams.page;
-    const { posts, metadata } = await getPosts({ pageNumber: parseInt(page as string) });
+export default async function page({searchParams}: Props) {
+    const page = searchParams.page as string || "1";
+    const { posts, metadata } = await getPosts({ pageNumber: parseInt(page), url: "/posts" });
 
 
     return (
@@ -26,7 +25,9 @@ export default async function page(props: Props) {
                         updatedAt={post.updatedAt}
                     />)}
             </div>
-            <PaginationControls metadata={metadata} pageNumber={page as string} />
+            <PaginationControls metadata={metadata} pageNumber={page} />
         </section>
     )
 }
+
+
