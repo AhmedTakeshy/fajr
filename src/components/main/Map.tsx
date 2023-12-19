@@ -13,7 +13,7 @@ export default function MapPage() {
     })
 
 
-    const [width, setWidth] = useState(typeof window !== "undefined" ? window.innerWidth: 650)
+    const [width, setWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 650)
 
     const handleWindowResize = () => {
         setWidth(window.innerWidth);
@@ -26,6 +26,8 @@ export default function MapPage() {
 
     const isMobile = width <= 600;
 
+    // Remove the event listener on the mpa to prevent the page from going down to focus on the map
+
     return (
         <div className="flex justify-center my-12 xl:justify-end lg:my-0">
             <Map
@@ -33,8 +35,6 @@ export default function MapPage() {
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 {...viewState}
                 style={{ width: `${isMobile ? "75%" : "100%"}`, height: 450, borderRadius: "1rem", padding: "1rem", maxWidth: "37.5rem" }}
-                cursor="pointer"
-                optimizeForTerrain={true}
                 onZoom={(e) => setViewState(e.viewState)}
             >
                 <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="red" anchor="top" />
@@ -43,17 +43,18 @@ export default function MapPage() {
                         style={{
                             color: "black",
                             fontWeight: "700",
-                            fontSize: isMobile?"0.9rem":"1.1rem",
-                            width: isMobile ?"9rem" :"15rem",
-                            padding: isMobile ?"0.3rem" :".7rem",
-                            textAlign: "center"
+                            fontSize: isMobile ? "0.9rem" : "1.1rem",
+                            width: isMobile ? "9rem" : "15rem",
+                            padding: isMobile ? "0.3rem" : ".7rem",
+                            textAlign: "center",
                         }}
                         longitude={viewState.longitude}
                         latitude={viewState.latitude}
+                        focusAfterOpen={false}
                         offset={20}
                         anchor="top"
                     >
-                          بغداد نفق الشرطة شارع الكنيسة قرب كنيسة مار يوسف مجاور خياطة عامر العيساوي للدشاديش مقابل مصرف  بغداد / عمارة الرحمن الطابق ٣ الاخير.
+                        بغداد نفق الشرطة شارع الكنيسة قرب كنيسة مار يوسف مجاور خياطة عامر العيساوي للدشاديش مقابل مصرف  بغداد / عمارة الرحمن الطابق ٣ الاخير.
                         <Link href="https://maps.app.goo.gl/fFC5S6ba6ABJiBuz6" target="_blank" className="text-cyan-600 hover:underline underline-offset-2">
                             <br />
                             اضغط هنا للتوجه للموقع
