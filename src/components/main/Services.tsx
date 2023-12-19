@@ -58,7 +58,7 @@ export default function Services() {
           title={services3.title}
           icon={<BiDonateHeart size={40} className=" text-cyan-400" />}
         />
-        <p className="col-span-3 font-bold text-center text-red-400"><b>**</b>كل فرص العمل المذكورة اعلاه هي فرص عمل في القطاع الخاص وليست حكومية ولا
+        <p className="lg:col-span-3 md:col-span-2 font-bold text-center text-red-400"><b>**</b>كل فرص العمل المذكورة اعلاه هي فرص عمل في القطاع الخاص وليست حكومية ولا
           في القطاع العام وتعتبر فرص عمل خدمية لتحسين الواقع المعيشي لدى شريحة الشباب.<b>**</b>
         </p>
       </section>
