@@ -65,7 +65,6 @@ export function SignInForm() {
                     
                 })
                 router.replace("/admin")
-                setIsPending(false)
             } else {
                 toast({
                     title: "للاسف",
@@ -81,8 +80,8 @@ export function SignInForm() {
                 duration: 5000,
                 variant: "destructive"
             })
-        setIsPending(false)
         }
+        setIsPending(false)
     }
 
     return (
