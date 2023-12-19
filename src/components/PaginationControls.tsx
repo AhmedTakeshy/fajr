@@ -17,7 +17,7 @@ export default function PaginationControls({ metadata,pageNumber }: Props) {
     const currentPage = parseInt(pageNumber)
 
     return (
-        <div className='flex items-center justify-center gap-2 my-8'>
+        <div className='flex items-center justify-center gap-2 mx-auto my-8'>
             <Button asChild={currentPage > 1} variant="outline" className={`rounded-md ${currentPage === 1 ? "bg-accent text-accent-foreground":""}`} disabled={currentPage <= 1}>
                 <Link href={{pathname:"/posts",query:{page:currentPage > 1?currentPage- 1:null}}}>
                     السابق
