@@ -1,6 +1,7 @@
 import CarouselItem from '@/components/main/CarouselItem'
 import Posts from '@/components/main/Posts';
 import Services from '@/components/main/Services';
+import Testimonials from '@/components/main/Testimonials';
 
 
 
@@ -10,7 +11,7 @@ export default function Home() {
       <CarouselItem />
       <Services />
       <Posts />
-      {/* <Team /> */}
+      <Testimonials />
     </main>
   );
 }
