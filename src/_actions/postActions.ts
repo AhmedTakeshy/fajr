@@ -108,22 +108,23 @@ export async function unPublishPost(id: number) {
 }
 
 type T = { posts: Post[], metadata: { hasNext: boolean, totalPages: number } };
-export async function getPosts({pageNumber}:{pageNumber:number}): Promise<T> {
+export async function getPosts({pageNumber,url}:{pageNumber:number,url?:string}): Promise<T> {
     const posts = await prisma.post.findMany({
         orderBy: {
             createdAt: "desc"
         },
-        skip: (pageNumber - 1) * 4,
-        take: 4,
+        skip: (pageNumber - 1) * 12,
+        take: 12,
     })
 
     const totalPosts = await prisma.post.count()
-    revalidatePath("/posts")
+    revalidatePath(`${url?url:"/posts"}`)
+
     return {
         posts,
         metadata: {
-            hasNext: totalPosts > pageNumber * 4,
-            totalPages: Math.ceil(totalPosts / 4)
+            hasNext: totalPosts > pageNumber * 12,
+            totalPages: Math.ceil(totalPosts / 12)
         }
     }
 }
@@ -136,3 +137,4 @@ export async function getPostById(id: number): Promise<Post> {
     })
     return post as Post
 }
+
