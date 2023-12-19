@@ -8,7 +8,7 @@ import ServiceItem from "./ServiceItem"
 export default function Services() {
 
   const services1 = {
-    title: "فرص عمل شاغره يوميا مؤكده ومضمونه مطلوبة",
+    title: "فرص عمل شاغره يوميا مؤكده ومضمونه ومطلوبة",
     description: [
       "خدمة المطاعم (عامل صالة - كابتن صاله - عامل مطبخ - عامل خدمة)",
       "انواع المندبة ( مندوب مبيعات - مندوب ميداني - مندوب توصيل ( لكلا الجنسين )",
@@ -42,21 +42,21 @@ export default function Services() {
       viewport={{ once: true, amount: 0.7 }}
       className='flex flex-col items-start justify-center my-10 containerX' id='services'>
       <h1 className='my-6 font-bold text-7xl'>خدماتنا</h1>
-      <section id="services" className='grid gap-8 my-4 lg:grid-cols-3 md:grid-cols-2 place-content-center'>
+      <section id="services" className='grid gap-20 my-4 lg:grid-cols-3 md:grid-cols-2 place-content-center'>
         <ServiceItem
           description={services1.description}
           title={services1.title}
-          icon={<HiOutlineSpeakerphone size={40} className="-mt-4 text-cyan-400" />}
+          icon={<HiOutlineSpeakerphone size={40} className=" text-cyan-400" />}
         />
         <ServiceItem
           description={services2.description}
           title={services2.title}
-          icon={<CgWorkAlt size={40} className="-mt-4 text-cyan-400" />}
+          icon={<CgWorkAlt size={40} className=" text-cyan-400" />}
         />
         <ServiceItem
           description={services3.description}
           title={services3.title}
-          icon={<BiDonateHeart size={40} className="-mt-4 text-cyan-400" />}
+          icon={<BiDonateHeart size={40} className=" text-cyan-400" />}
         />
         <p className="col-span-3 font-bold text-center text-red-400"><b>**</b>كل فرص العمل المذكورة اعلاه هي فرص عمل في القطاع الخاص وليست حكومية ولا
           في القطاع العام وتعتبر فرص عمل خدمية لتحسين الواقع المعيشي لدى شريحة الشباب.<b>**</b>

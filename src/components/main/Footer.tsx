@@ -62,9 +62,7 @@ export default function Footer() {
             </ol>
           </article>
         </div>
-        <Suspense fallback={<Skeleton className="w-[600.5px] h-[400] rounded-lg" />}>
           <MapPage />
-        </Suspense>
         <hr className='w-full my-8 text-center border-t-2 rounded-md xl:col-span-2 border-sky-800 dark:border-slate-950' />
         <section className='grid gap-3 text-center xl:grid-cols-2 xl:text-justify place-content-center xl:place-content-between xl:col-span-2'>
           <div className='order-2 xl:order-none'>
