@@ -12,7 +12,9 @@ export default async function Posts() {
   const { posts } = await getPosts({ pageNumber: 1 });
 
   return (
-    <MotionSection id="jobs" variants={fadeIn("up", 0.5)}
+    <MotionSection
+      id="jobs"
+      variants={fadeIn("up", 0.5)}
       initial="hidden"
       whileInView={"show"}
       viewport={{ once: true, amount: 0.7 }}
