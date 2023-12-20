@@ -66,10 +66,10 @@ export default function NavMenu() {
             <div className={`flex items-center justify-between h-full md:hidden rounded-xl px-8 my-8 ${showBg && !open ? "py-4 shadow-md transition-all duration-700 h-20 bg-gray-800/30 backdrop-blur dark:bg-slate-700/30" : ""}`}>
                 <Image className="ml-auto" src="/imgs/logo.png" width={130} height={32} alt="logo" />
                 <Popover onOpenChange={setOpen} open={open}>
-                    <PopoverTrigger asChild>
-                        <div className="flex gap-2">
+                    <PopoverTrigger aria-controls="2" aria-labelledby="open menu button" asChild>
+                        <div className="flex gap-2 items-center">
                             <ModeToggler />
-                            <Button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+                            <Button aria-description="open main menu" aria-label="open menu" data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
                                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
