@@ -51,8 +51,8 @@ export default function CarouselItem() {
                 {images.map((image, index) => {
                     return (
                         <Image
-                            loading="lazy"
-                            placeholder="empty"
+                            placeholder="blur"
+                            blurDataURL={image}
                             key={index}
                             src={image}
                             width={1920}
