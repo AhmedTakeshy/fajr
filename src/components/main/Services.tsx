@@ -42,7 +42,7 @@ export default function Services() {
       viewport={{ once: true, amount: 0.7 }}
       className='flex flex-col items-start justify-center my-10 containerX' id='services'>
       <h1 className='my-6 font-bold text-7xl'>خدماتنا</h1>
-      <section id="services" className='grid gap-20 my-4 lg:grid-cols-3 md:grid-cols-2 place-content-center'>
+      <section id="services" className='grid xl:gap-20 lg:gap-16 gap-12 my-4 xl:grid-cols-3 lg:grid-cols-2 place-content-center'>
         <ServiceItem
           description={services1.description}
           title={services1.title}
@@ -58,7 +58,7 @@ export default function Services() {
           title={services3.title}
           icon={<BiDonateHeart size={40} className=" text-cyan-400" />}
         />
-        <p className="lg:col-span-3 md:col-span-2 font-bold text-center text-red-400"><b>**</b>كل فرص العمل المذكورة اعلاه هي فرص عمل في القطاع الخاص وليست حكومية ولا
+        <p className="xl:col-span-3 lg:col-span-2 font-bold text-center text-red-400"><b>**</b>كل فرص العمل المذكورة اعلاه هي فرص عمل في القطاع الخاص وليست حكومية ولا
           في القطاع العام وتعتبر فرص عمل خدمية لتحسين الواقع المعيشي لدى شريحة الشباب.<b>**</b>
         </p>
       </section>
