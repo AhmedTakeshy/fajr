@@ -1,8 +1,8 @@
-import CarouselItem from '@/components/main/CarouselItem'
+import dynamic from 'next/dynamic';
 import Posts from '@/components/main/Posts';
 import Services from '@/components/main/Services';
 import Testimonials from '@/components/main/Testimonials';
-
+const CarouselItem = dynamic(() => import('@/components/main/CarouselItem'));
 
 
 export default function Home() {
