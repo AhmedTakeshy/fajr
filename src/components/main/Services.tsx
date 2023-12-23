@@ -36,27 +36,27 @@ export default function Services() {
 
   return (
     <MotionSection 
-      variants={fadeIn("right", 0.3)}
+      variants={fadeIn("down", 0.3)}
       initial="hidden"
       whileInView={"show"}
       viewport={{ once: true, amount: 0.7 }}
-      className='flex flex-col items-start justify-center my-10 containerX' id='services'>
-      <h1 className='my-6 font-bold text-7xl'>خدماتنا</h1>
+      className='flex flex-col items-start justify-center my-20 containerX !opacity-100 sm:opacity-0' id='services'>
+      <h1 className='my-6 font-bold sm:text-7xl text-4xl'>خدماتنا</h1>
       <section id="services" className='grid xl:gap-20 lg:gap-16 gap-12 my-4 xl:grid-cols-3 lg:grid-cols-2 place-content-center'>
         <ServiceItem
           description={services1.description}
           title={services1.title}
-          icon={<HiOutlineSpeakerphone size={40} className=" text-cyan-400" />}
+          icon={<HiOutlineSpeakerphone size={40} className="hidden sm:inline-flex text-cyan-400" />}
         />
         <ServiceItem
           description={services2.description}
           title={services2.title}
-          icon={<CgWorkAlt size={40} className=" text-cyan-400" />}
+          icon={<CgWorkAlt size={40} className="hidden sm:inline-flex text-cyan-400" />}
         />
         <ServiceItem
           description={services3.description}
           title={services3.title}
-          icon={<BiDonateHeart size={40} className=" text-cyan-400" />}
+          icon={<BiDonateHeart size={40} className="hidden sm:inline-flex text-cyan-400" />}
         />
         <p className="xl:col-span-3 lg:col-span-2 font-bold text-center text-red-400"><b>**</b>كل فرص العمل المذكورة اعلاه هي فرص عمل في القطاع الخاص وليست حكومية ولا
           في القطاع العام وتعتبر فرص عمل خدمية لتحسين الواقع المعيشي لدى شريحة الشباب.<b>**</b>
