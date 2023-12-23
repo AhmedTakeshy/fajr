@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import Posts from '@/components/main/Posts';
 import Services from '@/components/main/Services';
 import Testimonials from '@/components/main/Testimonials';
-const CarouselItem = dynamic(() => import('@/components/main/CarouselItem'));
+const CarouselItem = dynamic(() => import('@/components/main/CarouselItem'),{ssr: true});
 
 
 export default function Home() {
