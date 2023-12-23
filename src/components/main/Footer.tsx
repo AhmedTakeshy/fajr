@@ -5,8 +5,8 @@ import { HiMail } from "react-icons/hi";
 import { inter } from '@/lib/fonts';
 import Image from 'next/image';
 
-const MapPage = dynamic(() => import('./Map'))
-const SubscribeForm = dynamic(() => import('./SubscribeForm'))
+const MapPage = dynamic(() => import('./Map'), {ssr: true})
+const SubscribeForm = dynamic(() => import('./SubscribeForm'),{ssr: true})
 
 export default function Footer() {
 
@@ -14,7 +14,7 @@ export default function Footer() {
     <footer id='about' className='w-full bg-gray-300 pt-9 dark:bg-sky-950'>
       <section className='grid my-4 containerX place-content-center xl:place-content-between xl:grid-cols-2'>
         <div className="flex flex-col items-center gap-2 mr-4 text-right">
-          <h2 className='text-2xl font-bold text-left'>شـــــــركة فجـــــــر بغــــــداد</h2>
+          <h2 className='sm:text-2xl text-xl font-bold text-left'>شـــــــركة فجـــــــر بغــــــداد</h2>
           <Link href="tel:07509952084" className='self-start mt-4 mr-5'>
             التلفون: {" "}
             <span className='transition-colors duration-300 hover:text-sky-600'>
