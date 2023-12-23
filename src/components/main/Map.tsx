@@ -26,7 +26,6 @@ export default function MapPage() {
 
     const isMobile = width <= 600;
 
-    // Remove the event listener on the mpa to prevent the page from going down to focus on the map
 
     return (
         <div className="flex justify-center my-12 xl:justify-end lg:my-0">
@@ -34,7 +33,7 @@ export default function MapPage() {
                 mapboxAccessToken={mapboxToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 {...viewState}
-                style={{ width: `${isMobile ? "75%" : "100%"}`, height: 450, borderRadius: "1rem", padding: "1rem", maxWidth: "37.5rem" }}
+                style={{ width: `${isMobile ? "75%" : "100%"}`, height: 450, borderRadius: "1rem", padding: "1rem", maxWidth: isMobile ? "50rem" : "37.5rem" }}
                 onZoom={(e) => setViewState(e.viewState)}
             >
                 <Marker longitude={viewState.longitude} latitude={viewState.latitude} color="red" anchor="top" />
