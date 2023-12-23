@@ -115,8 +115,7 @@ html {
 }
 
 .containerX {
-  @apply w-full gap-12 px-8 mx-auto;
-  max-width: calc(100% - 10rem);
+  @apply w-full gap-12 px-8 mx-auto max-w-none sm:max-w-[calc(100%-5rem)] md:max-w-[calc(100%-7rem)] lg:max-w-[calc(100%-10rem)];
 }
 
 @layer base {
