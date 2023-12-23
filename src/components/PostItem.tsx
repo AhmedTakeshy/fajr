@@ -21,9 +21,9 @@ export default function PostItem({ title, description, img, updatedAt, publicId,
                 y: -12,
                 transition: { stiffness: 200, type: "spring", ease: "backInOut" },
             }}
-            className="flex flex-col items-start justify-between rounded-lg shadow-md dark:bg-sky-950 bg-slate-300">
-            {!!img&&<Image src={img} alt={`blog image`} width={255} height={163.2} className="w-full rounded-t-lg" />}
-            <div className="h-full min-h-[13.5rem] px-4 py-8 border-b  border-slate-700">
+            className="flex flex-col items-start justify-between rounded-lg dark:bg-sky-950 bg-slate-300">
+            {!!img&&<Image src={img} alt={`job post image`} width={255} height={163.2} className="w-full rounded-t-lg" />}
+            <div className="h-full min-h-[13.5rem] px-4 py-8 border-b border-slate-700">
                 <h3 className="mb-2 text-2xl font-medium text-black dark:text-white">{title}</h3>
                 <p className="mt-2 text-base font-semibold text-indigo-500">{topic}</p>
                 <p className="text-xl line-clamp-3 dark:text-slate-200 text-slate-700">{description}</p>
