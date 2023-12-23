@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'شـــــــركة فجـــــــر بغــــــداد',
   description: "استحداث فرص العمل من مواقع العمل المختلفة في جميع القطاعات وتشغيل كل الاختصاصات ولكلا الجنسين مبدأنا الثقة شعارنا الامان غايتنا خدمتكم",
 }
-const NavMenu = dynamic(() => import('@/components/main/NavMenu'))
+const NavMenu = dynamic(() => import('@/components/main/NavMenu'),{ssr: true})
 export default function MainLayout({
   children,
 }: {
