@@ -14,12 +14,12 @@ export default async function Posts() {
   return (
     <MotionSection
       id="jobs"
-      variants={fadeIn("up", 0.5)}
+      variants={fadeIn("up", 0.3)}
       initial="hidden"
       whileInView={"show"}
       viewport={{ once: true, amount: 0.7 }}
-      className='container flex flex-col items-start justify-center my-10'>
-      {posts.length > 0 ? <h1 className='my-10 font-bold text-7xl'>الوظائف</h1> : <p className='my-10 text-5xl font-bold'>قريبا ستم نشر الوظائف</p>}
+      className='container flex flex-col items-start justify-center my-20 !opacity-100 sm:opacity-0'>
+      {posts.length > 0 ? <h1 className='my-10 font-bold sm:text-7xl text-4xl'>الوظائف</h1> : <p className='my-10 sm:text-5xl text-3xl font-bold'>قريبا ستم نشر الوظائف</p>}
       <div className="grid gap-10 mb-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 place-items-start">
         {posts
           .map(post => !!post.published &&
