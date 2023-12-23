@@ -19,7 +19,7 @@ export default function Testimonials() {
             viewport={{ once: true, amount: 0.7 }}
             className='bg-[url("/imgs/pic1-big.jpg")] relative z-[3] mt-24 bg-fixed bg-center'>
             <div className="absolute w-full h-full z-[5] bg-black/80" />
-            <h1 className="py-8 xl:text-6xl lg:text-5xl text-3xl font-bold relative text-center z-10">اراء عملائنا</h1>
+            <h1 className="py-8 xl:text-6xl lg:text-5xl text-3xl font-bold relative text-center z-10 text-white">اراء عملائنا</h1>
             <div className="relative z-10 grid gap-4 mx-auto max-w-[60rem] md:grid-cols-5 place-items-center p-8">
                 <Image
                     className="border border-white w-full h-full col-span-2 row-span-2 bg-transparent rounded-md md:col-span-3"
