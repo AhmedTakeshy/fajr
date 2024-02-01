@@ -64,7 +64,7 @@ export default function Footer() {
           <div className='order-2 xl:order-none'>
             <p className=' text-slate-800 dark:text-slate-100'>جميع الحقوق محفوظة شـــــــركة فجـــــــر بغــــــداد © 2023</p>
             <p className={`${inter.className} !mt-0`}>تم التصميم والتطوير بواسطة
-              <Link href='https://www.takeshy.works/' target='_blank' className="font-bold transition-all duration-500 text-cyan-500 hover:tracking-widest hover:will-change-transform"> Takeshy</Link>
+              <Link href='https://www.takeshy.tech/' target='_blank' className="font-bold transition-all duration-500 text-cyan-500 hover:tracking-widest hover:will-change-transform"> Takeshy</Link>
             </p>
           </div>
           <div className='order-1 xl:order-none'>
